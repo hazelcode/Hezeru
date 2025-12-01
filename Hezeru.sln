@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KeplerEngine", "KeplerEngine\KeplerEngine.csproj", "{32265E06-1D0B-436D-B500-9C0C5FEEFB5C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hezeru", "Hezeru\Hezeru.csproj", "{A07456B7-726D-41E1-AE36-7FB71304D59F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hezeru.ModdingAPI", "Hezeru.ModdingAPI\Hezeru.ModdingAPI.csproj", "{FE4712B8-B9CA-49CD-8437-49C0AAC71F8C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{32265E06-1D0B-436D-B500-9C0C5FEEFB5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32265E06-1D0B-436D-B500-9C0C5FEEFB5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32265E06-1D0B-436D-B500-9C0C5FEEFB5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32265E06-1D0B-436D-B500-9C0C5FEEFB5C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A07456B7-726D-41E1-AE36-7FB71304D59F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A07456B7-726D-41E1-AE36-7FB71304D59F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A07456B7-726D-41E1-AE36-7FB71304D59F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A07456B7-726D-41E1-AE36-7FB71304D59F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE4712B8-B9CA-49CD-8437-49C0AAC71F8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE4712B8-B9CA-49CD-8437-49C0AAC71F8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE4712B8-B9CA-49CD-8437-49C0AAC71F8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE4712B8-B9CA-49CD-8437-49C0AAC71F8C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
