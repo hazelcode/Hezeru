@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using KeplerEngine;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -8,10 +9,14 @@ public class Game1 : Game
 {
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
+    private RenderTarget2D _renderTarget;
 
     public Game1()
     {
         _graphics = new GraphicsDeviceManager(this);
+        // Apply a 800x600 resolution
+        _graphics.PreferredBackBufferWidth = 800;
+        _graphics.PreferredBackBufferWidth = 600;
         Content.RootDirectory = "Content";
         IsMouseVisible = true;
     }
@@ -26,25 +31,37 @@ public class Game1 : Game
     protected override void LoadContent()
     {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
+        _renderTarget = new RenderTarget2D(GraphicsDevice, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
 
-        // TODO: use this.Content to load your game content here
+        Globals.SpriteBatch = _spriteBatch;
+        Globals.RenderTarget = _renderTarget;
+        Globals.Content = Content;
     }
 
     protected override void Update(GameTime gameTime)
     {
-        if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-            Exit();
-
-        // TODO: Add your update logic here
+        Globals.Update(gameTime);
+        Globals.Keyboard.OnKeyPressedOnce(Keys.Escape, Exit);
 
         base.Update(gameTime);
     }
 
     protected override void Draw(GameTime gameTime)
     {
-        GraphicsDevice.Clear(Color.CornflowerBlue);
+        GraphicsDevice.SetRenderTarget(Globals.RenderTarget);
+        GraphicsDevice.Clear(Color.Black);
+        Globals.SpriteBatch.Begin(samplerState: SamplerState.PointClamp);
 
-        // TODO: Add your drawing code here
+        // Draw code
+
+        Globals.SpriteBatch.End();
+        GraphicsDevice.SetRenderTarget(null);
+        Globals.SpriteBatch.Begin(samplerState: SamplerState.PointClamp);
+        Globals.SpriteBatch.Draw(
+            Globals.RenderTarget,
+            new Rectangle(0, 0, Globals.RenderTarget.Width, Globals.RenderTarget.Height),
+            Color.White);
+        Globals.SpriteBatch.End();
 
         base.Draw(gameTime);
     }
