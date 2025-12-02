@@ -67,21 +67,27 @@ public class Game1 : Game
 
     protected override void Draw(GameTime gameTime)
     {
+        // Calculate responsive scale (like osu!lazer)
+        int winW = GraphicsDevice.Viewport.Width;
+        int winH = GraphicsDevice.Viewport.Height;
+        float scale = Math.Min((float)winW / NATIVE_WIDTH, (float)winH / NATIVE_HEIGHT);
+        
+        // Create transform matrix to scale everything
+        var scaleMatrix = Matrix.CreateScale(scale, scale, 1f);
+
         GraphicsDevice.SetRenderTarget(Globals.RenderTarget);
         GraphicsDevice.Clear(Color.Black);
-        Globals.SpriteBatch.Begin(samplerState: SamplerState.PointClamp);
+        Globals.SpriteBatch.Begin(samplerState: SamplerState.PointClamp, transformMatrix: scaleMatrix);
 
         // Draw code
         Globals.Draw(gameTime);
 
         Globals.SpriteBatch.End();
         GraphicsDevice.SetRenderTarget(null);
+        GraphicsDevice.Clear(Color.Black);
         Globals.SpriteBatch.Begin(samplerState: SamplerState.PointClamp);
 
-        // 'cover' scale type (always covers the window)
-        int winW = GraphicsDevice.Viewport.Width;
-        int winH = GraphicsDevice.Viewport.Height;
-        float scale = Math.Max((float)winW / NATIVE_WIDTH, (float)winH / NATIVE_HEIGHT);
+        // Draw RenderTarget scaled and centered
         int drawW = (int)(NATIVE_WIDTH * scale);
         int drawH = (int)(NATIVE_HEIGHT * scale);
         int offsetX = (winW - drawW) / 2;
