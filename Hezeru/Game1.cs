@@ -12,6 +12,8 @@ public class Game1 : Game
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
     private RenderTarget2D _renderTarget;
+    private const int NATIVE_WIDTH = 800;
+    private const int NATIVE_HEIGHT = 600;
 
     public Game1()
     {
@@ -33,8 +35,7 @@ public class Game1 : Game
     {
         _graphics.PreferredBackBufferWidth = Window.ClientBounds.Width;
         _graphics.PreferredBackBufferHeight = Window.ClientBounds.Height;
-        _renderTarget = new(GraphicsDevice, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
-        Globals.RenderTarget = _renderTarget;
+        _graphics.ApplyChanges();
     }
 
     protected override void Initialize()
@@ -76,10 +77,14 @@ public class Game1 : Game
         Globals.SpriteBatch.End();
         GraphicsDevice.SetRenderTarget(null);
         Globals.SpriteBatch.Begin(samplerState: SamplerState.PointClamp);
+        
+        // Scale the RenderTarget to the window size
+        var targetRect = new Rectangle(0, 0, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
         Globals.SpriteBatch.Draw(
             Globals.RenderTarget,
-            new Rectangle(0, 0, Globals.RenderTarget.Width, Globals.RenderTarget.Height),
+            targetRect,
             Color.White);
+        
         Globals.SpriteBatch.End();
 
         base.Draw(gameTime);
