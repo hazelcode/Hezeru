@@ -56,6 +56,7 @@ public class Game1 : Game
         Globals.SpriteBatch.Begin(samplerState: SamplerState.PointClamp);
 
         // Draw code
+        Globals.Draw(gameTime);
 
         Globals.SpriteBatch.End();
         GraphicsDevice.SetRenderTarget(null);
