@@ -77,16 +77,22 @@ public class Game1 : Game
         Globals.SpriteBatch.End();
         GraphicsDevice.SetRenderTarget(null);
         Globals.SpriteBatch.Begin(samplerState: SamplerState.PointClamp);
-        
-        // Scale the RenderTarget to the window size
-        var targetRect = new Rectangle(0, 0, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
+
+        // 'cover' scale type (always covers the window)
+        int winW = GraphicsDevice.Viewport.Width;
+        int winH = GraphicsDevice.Viewport.Height;
+        float scale = Math.Max((float)winW / NATIVE_WIDTH, (float)winH / NATIVE_HEIGHT);
+        int drawW = (int)(NATIVE_WIDTH * scale);
+        int drawH = (int)(NATIVE_HEIGHT * scale);
+        int offsetX = (winW - drawW) / 2;
+        int offsetY = (winH - drawH) / 2;
+        var targetRect = new Rectangle(offsetX, offsetY, drawW, drawH);
+
         Globals.SpriteBatch.Draw(
             Globals.RenderTarget,
             targetRect,
             Color.White);
-        
         Globals.SpriteBatch.End();
-
         base.Draw(gameTime);
     }
 }
