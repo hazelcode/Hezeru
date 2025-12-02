@@ -34,6 +34,7 @@ public class Game1 : Game
         _graphics.PreferredBackBufferWidth = Window.ClientBounds.Width;
         _graphics.PreferredBackBufferHeight = Window.ClientBounds.Height;
         _renderTarget = new(GraphicsDevice, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
+        Globals.RenderTarget = _renderTarget;
     }
 
     protected override void Initialize()
