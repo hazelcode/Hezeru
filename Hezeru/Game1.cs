@@ -67,38 +67,33 @@ public class Game1 : Game
 
     protected override void Draw(GameTime gameTime)
     {
-        // Calculate responsive scale (like osu!lazer)
-        int winW = GraphicsDevice.Viewport.Width;
-        int winH = GraphicsDevice.Viewport.Height;
-        float scale = Math.Min((float)winW / NATIVE_WIDTH, (float)winH / NATIVE_HEIGHT);
-        
-        // Create transform matrix to scale everything
-        var scaleMatrix = Matrix.CreateScale(scale, scale, 1f);
-
+        // Render everything at native resolution (no internal SpriteBatch transform)
         GraphicsDevice.SetRenderTarget(Globals.RenderTarget);
         GraphicsDevice.Clear(Color.Black);
-        Globals.SpriteBatch.Begin(samplerState: SamplerState.PointClamp, transformMatrix: scaleMatrix);
+        Globals.SpriteBatch.Begin(samplerState: SamplerState.PointClamp);
 
-        // Draw code
+        // Draw code at native coordinates
         Globals.Draw(gameTime);
 
         Globals.SpriteBatch.End();
         GraphicsDevice.SetRenderTarget(null);
-        GraphicsDevice.Clear(Color.Black);
-        Globals.SpriteBatch.Begin(samplerState: SamplerState.PointClamp);
 
-        // Draw RenderTarget scaled and centered
+        // Final pass: scale the RenderTarget to the window while preserving aspect ratio
+        int winW = GraphicsDevice.Viewport.Width;
+        int winH = GraphicsDevice.Viewport.Height;
+        // Use 'contain' so nothing is clipped and anchors remain consistent
+        float scale = Math.Min((float)winW / NATIVE_WIDTH, (float)winH / NATIVE_HEIGHT);
         int drawW = (int)(NATIVE_WIDTH * scale);
         int drawH = (int)(NATIVE_HEIGHT * scale);
         int offsetX = (winW - drawW) / 2;
         int offsetY = (winH - drawH) / 2;
         var targetRect = new Rectangle(offsetX, offsetY, drawW, drawH);
 
-        Globals.SpriteBatch.Draw(
-            Globals.RenderTarget,
-            targetRect,
-            Color.White);
+        GraphicsDevice.Clear(Color.Black);
+        Globals.SpriteBatch.Begin(samplerState: SamplerState.PointClamp);
+        Globals.SpriteBatch.Draw(Globals.RenderTarget, targetRect, Color.White);
         Globals.SpriteBatch.End();
+
         base.Draw(gameTime);
     }
 }
