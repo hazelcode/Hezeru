@@ -1,4 +1,5 @@
-﻿using Hezeru.Scenes;
+﻿using System;
+using Hezeru.Scenes;
 using KeplerEngine;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -23,8 +24,16 @@ public class Game1 : Game
 #if DEBUG
         Window.Title = "Hezeru (Development Mode)";
         Window.AllowUserResizing = true;
+        Window.ClientSizeChanged += OnWindowResize;
         _graphics.SynchronizeWithVerticalRetrace = false;
 #endif
+    }
+
+    private void OnWindowResize(object sender, EventArgs e)
+    {
+        _graphics.PreferredBackBufferWidth = Window.ClientBounds.Width;
+        _graphics.PreferredBackBufferHeight = Window.ClientBounds.Height;
+        _renderTarget = new(GraphicsDevice, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
     }
 
     protected override void Initialize()
