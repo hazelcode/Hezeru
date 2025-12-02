@@ -33,8 +33,8 @@ public class Game1 : Game
 
     private void OnWindowResize(object sender, EventArgs e)
     {
-        _graphics.PreferredBackBufferWidth = Window.ClientBounds.Width;
-        _graphics.PreferredBackBufferHeight = Window.ClientBounds.Height;
+        // El RenderTarget mantiene su tamaño nativo (800x600)
+        // Solo aplicamos los cambios de la ventana sin recrear el RenderTarget
         _graphics.ApplyChanges();
     }
 
@@ -48,7 +48,7 @@ public class Game1 : Game
     protected override void LoadContent()
     {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
-        _renderTarget = new RenderTarget2D(GraphicsDevice, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
+        _renderTarget = new RenderTarget2D(GraphicsDevice, NATIVE_WIDTH, NATIVE_HEIGHT);
 
         Globals.SpriteBatch = _spriteBatch;
         Globals.RenderTarget = _renderTarget;
