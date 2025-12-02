@@ -18,7 +18,7 @@ public class Game1 : Game
         _graphics = new GraphicsDeviceManager(this);
         // Apply a 800x600 resolution
         _graphics.PreferredBackBufferWidth = 800;
-        _graphics.PreferredBackBufferWidth = 600;
+        _graphics.PreferredBackBufferHeight = 600;
         Content.RootDirectory = "Content";
         IsMouseVisible = true;
 #if DEBUG

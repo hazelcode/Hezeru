@@ -24,8 +24,8 @@ public class LoadingScene : IScene, IDisposable
 
     public void Update()
     {
-        _wheelAnchorData.AdjustToContainer(Globals.RenderTarget.Bounds, ref _wheelPositionRect);
         _loadingWheelAnim.Update();
+        _wheelAnchorData.AdjustToContainer(Globals.RenderTarget.Bounds, ref _wheelPositionRect);
     }
 
     public void Draw()
