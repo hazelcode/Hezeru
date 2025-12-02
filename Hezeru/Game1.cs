@@ -20,6 +20,11 @@ public class Game1 : Game
         _graphics.PreferredBackBufferWidth = 600;
         Content.RootDirectory = "Content";
         IsMouseVisible = true;
+#if DEBUG
+        Window.Title = "Hezeru (Development Mode)";
+        Window.AllowUserResizing = true;
+        _graphics.SynchronizeWithVerticalRetrace = false;
+#endif
     }
 
     protected override void Initialize()
