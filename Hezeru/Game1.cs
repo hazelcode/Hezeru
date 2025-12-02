@@ -1,4 +1,5 @@
-﻿using KeplerEngine;
+﻿using Hezeru.Scenes;
+using KeplerEngine;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -36,6 +37,8 @@ public class Game1 : Game
         Globals.SpriteBatch = _spriteBatch;
         Globals.RenderTarget = _renderTarget;
         Globals.Content = Content;
+
+        Globals.SceneManager.AddScene(new LoadingScene());
     }
 
     protected override void Update(GameTime gameTime)

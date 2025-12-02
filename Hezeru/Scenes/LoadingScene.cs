@@ -1,0 +1,46 @@
+using KeplerEngine;
+using KeplerEngine.GUI;
+using KeplerEngine.Graphics;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
+
+namespace Hezeru.Scenes;
+
+public class LoadingScene : IScene, IDisposable
+{
+    private Texture2D _loadingWheelTex;
+    private Animation _loadingWheelAnim;
+    private ElementAnchorData _wheelAnchorData;
+    private Rectangle _wheelPositionRect;
+
+    public void Load()
+    {
+        _loadingWheelTex = Globals.Content.Load<Texture2D>("Animations/LoadingWheel");
+        _loadingWheelAnim = new Animation(4, 4, new Vector2(16, 16));
+        _wheelAnchorData = new ElementAnchorData(ElementAnchor.BottomRightCorner, -5, -5);
+        _wheelPositionRect = new(0, 0, 16, 16);
+    }
+
+    public void Update()
+    {
+        _wheelAnchorData.AdjustToContainer(Globals.RenderTarget.Bounds, ref _wheelPositionRect);
+        _loadingWheelAnim.Update();
+    }
+
+    public void Draw()
+    {
+        Globals.SpriteBatch.Draw(
+            _loadingWheelTex,
+            _wheelPositionRect,
+            _loadingWheelAnim.GetFrame(),
+            Color.White);
+    }
+
+    public void Dispose()
+    {
+        // Free heap
+        _loadingWheelTex = null;
+        _loadingWheelAnim = null;
+    }
+}
