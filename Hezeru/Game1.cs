@@ -36,6 +36,7 @@ public class Game1 : Game
         // The RenderTarget keeps him native size (800x600)
         // We only apply the window changes without recreating the RenderTarget
         _graphics.ApplyChanges();
+        UpdateUIScaling();
     }
 
     protected override void Initialize()
@@ -54,15 +55,52 @@ public class Game1 : Game
         Globals.RenderTarget = _renderTarget;
         Globals.Content = Content;
 
+        // Initialize UI scaling/visible rect
+        UpdateUIScaling();
+
         Globals.SceneManager.AddScene(new LoadingScene());
     }
 
     protected override void Update(GameTime gameTime)
     {
+        // Recalculate UI scaling each frame (in case window size changed)
+        UpdateUIScaling();
+
         Globals.Update(gameTime);
         Globals.Keyboard.OnKeyPressedOnce(Keys.Escape, Exit);
 
         base.Update(gameTime);
+    }
+
+    private void UpdateUIScaling()
+    {
+        int winW = GraphicsDevice.Viewport.Width;
+        int winH = GraphicsDevice.Viewport.Height;
+
+        // Use 'cover' scaling so the canvas fills the window (like osu!lazer)
+        float scale = Math.Max((float)winW / NATIVE_WIDTH, (float)winH / NATIVE_HEIGHT);
+
+        // Compute how the render target will be drawn onto the window
+        int drawW = (int)(NATIVE_WIDTH * scale);
+        int drawH = (int)(NATIVE_HEIGHT * scale);
+        int offsetX = (winW - drawW) / 2;
+        int offsetY = (winH - drawH) / 2;
+
+        // Visible region of the native render target (in native pixels)
+        float invScale = 1f / scale;
+        float visXf = Math.Max(0f, -offsetX * invScale);
+        float visYf = Math.Max(0f, -offsetY * invScale);
+        float visWf = Math.Min((float)NATIVE_WIDTH - visXf, winW * invScale);
+        float visHf = Math.Min((float)NATIVE_HEIGHT - visYf, winH * invScale);
+
+        Globals.UIScale = scale;
+        Globals.VisibleRenderTargetBounds = new Rectangle(
+            (int)Math.Round(visXf),
+            (int)Math.Round(visYf),
+            (int)Math.Round(visWf),
+            (int)Math.Round(visHf));
+        // Store where the render target is drawn on the screen (window coordinates)
+        Globals.RenderTargetDisplayRect = new Rectangle(offsetX, offsetY, drawW, drawH);
     }
 
     protected override void Draw(GameTime gameTime)
@@ -78,15 +116,12 @@ public class Game1 : Game
         Globals.SpriteBatch.End();
         GraphicsDevice.SetRenderTarget(null);
 
-        // Final pass: scale the RenderTarget to the window while preserving aspect ratio
-        int winW = GraphicsDevice.Viewport.Width;
-        int winH = GraphicsDevice.Viewport.Height;
-        // Use 'contain' so nothing is clipped and anchors remain consistent
-        float scale = Math.Min((float)winW / NATIVE_WIDTH, (float)winH / NATIVE_HEIGHT);
+        // Final pass: draw the RenderTarget scaled to fill the window (cover)
+        float scale = Globals.UIScale;
         int drawW = (int)(NATIVE_WIDTH * scale);
         int drawH = (int)(NATIVE_HEIGHT * scale);
-        int offsetX = (winW - drawW) / 2;
-        int offsetY = (winH - drawH) / 2;
+        int offsetX = (GraphicsDevice.Viewport.Width - drawW) / 2;
+        int offsetY = (GraphicsDevice.Viewport.Height - drawH) / 2;
         var targetRect = new Rectangle(offsetX, offsetY, drawW, drawH);
 
         GraphicsDevice.Clear(Color.Black);

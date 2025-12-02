@@ -25,7 +25,11 @@ public class LoadingScene : IScene, IDisposable
     public void Update()
     {
         _loadingWheelAnim.Update();
-        _wheelAnchorData.AdjustToContainer(Globals.RenderTarget.Bounds, ref _wheelPositionRect);
+        // Use the visible portion of the render target so anchors follow the visible area
+        var visible = Globals.VisibleRenderTargetBounds;
+        if (visible == Rectangle.Empty)
+            visible = Globals.RenderTarget.Bounds;
+        _wheelAnchorData.AdjustToContainer(visible, ref _wheelPositionRect);
     }
 
     public void Draw()

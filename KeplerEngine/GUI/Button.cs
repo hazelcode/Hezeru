@@ -137,7 +137,10 @@ public class Button : IElement
 
     public void Update()
     {
-        AnchorData.AdjustToContainer(Globals.RenderTarget.Bounds, ref _rectangle);
+        var visible = Globals.VisibleRenderTargetBounds;
+        if (visible == Rectangle.Empty)
+            visible = Globals.RenderTarget.Bounds;
+        AnchorData.AdjustToContainer(visible, ref _rectangle);
 
         IsHovered = Globals.Mouse.IsOver(_rectangle);
         

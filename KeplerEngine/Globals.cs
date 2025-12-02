@@ -11,6 +11,16 @@ public class Globals
     public static SpriteBatch SpriteBatch { get; set; }
 
     public static RenderTarget2D RenderTarget { get; set; }
+    
+    // UIScale: scale factor used to map native render target pixels to window pixels
+    public static float UIScale { get; set; } = 1f;
+
+    // VisibleRenderTargetBounds: the rectangle (in native render-target coordinates)
+    // that is currently visible on screen after scaling (useful for anchoring)
+    public static Rectangle VisibleRenderTargetBounds { get; set; } = Rectangle.Empty;
+    
+    // Rectangle (in window coordinates) where the RenderTarget is drawn
+    public static Rectangle RenderTargetDisplayRect { get; set; } = Rectangle.Empty;
 
     public static KeyboardInputHandler Keyboard { get; set; } = new KeyboardInputHandler();
 

@@ -14,7 +14,20 @@ public class MouseInputHandler
     public void Update()
     {
         MouseState = Mouse.GetState();
-        MousePosition = MouseState.Position;
+        // Map window mouse position to native render-target coordinates if possible
+        var pos = MouseState.Position;
+        if (KeplerEngine.Globals.RenderTargetDisplayRect != Rectangle.Empty && KeplerEngine.Globals.UIScale > 0f)
+        {
+            var rt = KeplerEngine.Globals.RenderTargetDisplayRect;
+            float sx = KeplerEngine.Globals.UIScale;
+            int nx = (int)Math.Round((pos.X - rt.X) / sx);
+            int ny = (int)Math.Round((pos.Y - rt.Y) / sx);
+            MousePosition = new Point(nx, ny);
+        }
+        else
+        {
+            MousePosition = MouseState.Position;
+        }
 
         LeftButtonPressed = MouseState.LeftButton.HasFlag(ButtonState.Pressed);
         RightButtonPressed = MouseState.RightButton.HasFlag(ButtonState.Pressed);
