@@ -11,15 +11,15 @@ public class Animation
 
     public bool IsPaused { get; set; } = false;
 
-    public Animation(int numFrames, int numColumns, Vector2 size)
+    public Animation(int numFrames, int numColumns, Vector2 size, int interval = 30)
     {
         this.numFrames = numFrames;
         this.numColumns = numColumns;
         this.size = size;
+        this.interval = interval;
 
         counter = 0;
         activeFrame = 0;
-        interval = 30;
 
         rowPos = 0;
         colPos = 0;
