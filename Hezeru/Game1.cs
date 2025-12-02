@@ -33,8 +33,8 @@ public class Game1 : Game
 
     private void OnWindowResize(object sender, EventArgs e)
     {
-        // El RenderTarget mantiene su tamaño nativo (800x600)
-        // Solo aplicamos los cambios de la ventana sin recrear el RenderTarget
+        // The RenderTarget keeps him native size (800x600)
+        // We only apply the window changes without recreating the RenderTarget
         _graphics.ApplyChanges();
     }
 
