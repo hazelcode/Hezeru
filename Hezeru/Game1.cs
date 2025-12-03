@@ -135,7 +135,7 @@ public class Game1 : Game
     {
         // Render everything at native resolution (no internal SpriteBatch transform)
         GraphicsDevice.SetRenderTarget(Globals.RenderTarget);
-        GraphicsDevice.Clear(Color.DarkGray);
+        GraphicsDevice.Clear(Color.Black);
         Globals.SpriteBatch.Begin(samplerState: SamplerState.PointClamp);
 
         // Draw code at native coordinates
