@@ -70,6 +70,9 @@ public class Game1 : Game
 
     protected override void Update(GameTime gameTime)
     {
+#if DEBUG
+        Globals.Keyboard.OnKeyPressedOnce(Keys.F11, _graphics.ToggleFullScreen);
+#endif
         // Recalculate UI scaling each frame (in case window size changed)
         UpdateUIScaling();
 
