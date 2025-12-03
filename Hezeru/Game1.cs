@@ -15,6 +15,7 @@ public class Game1 : Game
     private const int NATIVE_WIDTH = 800;
     private const int NATIVE_HEIGHT = 600;
     private DebugOverlay _debugOverlay;
+    private SpriteFont _consolasFont;
 
     public Game1()
     {
@@ -56,11 +57,13 @@ public class Game1 : Game
         Globals.RenderTarget = _renderTarget;
         Globals.Content = Content;
 
+        _consolasFont = Globals.Content.Load<SpriteFont>("Fonts/Consolas");
+
         // Initialize UI scaling/visible rect
         UpdateUIScaling();
 
         // Initialize debug overlay (null font is ok, just won't display text)
-        _debugOverlay = new DebugOverlay();
+        _debugOverlay = new DebugOverlay(_consolasFont);
 
         Globals.SceneManager.AddScene(new LoadingScene());
     }
