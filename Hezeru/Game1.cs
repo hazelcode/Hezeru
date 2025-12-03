@@ -14,6 +14,7 @@ public class Game1 : Game
     private RenderTarget2D _renderTarget;
     private const int NATIVE_WIDTH = 800;
     private const int NATIVE_HEIGHT = 600;
+    private DebugOverlay _debugOverlay;
 
     public Game1()
     {
@@ -58,6 +59,9 @@ public class Game1 : Game
         // Initialize UI scaling/visible rect
         UpdateUIScaling();
 
+        // Initialize debug overlay (null font is ok, just won't display text)
+        _debugOverlay = new DebugOverlay();
+
         Globals.SceneManager.AddScene(new LoadingScene());
     }
 
@@ -65,6 +69,9 @@ public class Game1 : Game
     {
         // Recalculate UI scaling each frame (in case window size changed)
         UpdateUIScaling();
+
+        // Update debug overlay
+        _debugOverlay.Update();
 
         Globals.Update(gameTime);
         Globals.Keyboard.OnKeyPressedOnce(Keys.Escape, Exit);
@@ -77,8 +84,29 @@ public class Game1 : Game
         int winW = GraphicsDevice.Viewport.Width;
         int winH = GraphicsDevice.Viewport.Height;
 
-        // Use 'cover' scaling so the canvas fills the window (like osu!lazer)
-        float scale = Math.Max((float)winW / NATIVE_WIDTH, (float)winH / NATIVE_HEIGHT);
+        // Choose scaling mode
+        float scale;
+        switch (KeplerEngine.Globals.CurrentScalingMode)
+        {
+            case KeplerEngine.Globals.ScalingMode.Contain:
+                // keep whole canvas visible
+                scale = Math.Min((float)winW / NATIVE_WIDTH, (float)winH / NATIVE_HEIGHT);
+                break;
+            case KeplerEngine.Globals.ScalingMode.Cover:
+                // fill window, may crop
+                scale = Math.Max((float)winW / NATIVE_WIDTH, (float)winH / NATIVE_HEIGHT);
+                break;
+            case KeplerEngine.Globals.ScalingMode.Integer:
+                // integer pixel-perfect scale (1x,2x,3x...)
+                var raw = Math.Min((float)winW / NATIVE_WIDTH, (float)winH / NATIVE_HEIGHT);
+                var intval = (int)Math.Floor(raw);
+                if (intval < 1) intval = 1;
+                scale = intval;
+                break;
+            default:
+                scale = Math.Min((float)winW / NATIVE_WIDTH, (float)winH / NATIVE_HEIGHT);
+                break;
+        }
 
         // Compute how the render target will be drawn onto the window
         int drawW = (int)(NATIVE_WIDTH * scale);
@@ -127,6 +155,10 @@ public class Game1 : Game
         GraphicsDevice.Clear(Color.Black);
         Globals.SpriteBatch.Begin(samplerState: SamplerState.PointClamp);
         Globals.SpriteBatch.Draw(Globals.RenderTarget, targetRect, Color.White);
+
+        // Draw debug overlay on top
+        _debugOverlay.Draw();
+
         Globals.SpriteBatch.End();
 
         base.Draw(gameTime);

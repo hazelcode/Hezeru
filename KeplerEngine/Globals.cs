@@ -22,6 +22,16 @@ public class Globals
     // Rectangle (in window coordinates) where the RenderTarget is drawn
     public static Rectangle RenderTargetDisplayRect { get; set; } = Rectangle.Empty;
 
+    // Scaling modes
+    public enum ScalingMode
+    {
+        Contain, // keep aspect ratio, whole canvas visible (letterbox)
+        Cover,   // fill window, may crop
+        Integer  // integer pixel-perfect scale (1x,2x,3x...)
+    }
+
+    public static ScalingMode CurrentScalingMode { get; set; } = ScalingMode.Contain;
+
     public static KeyboardInputHandler Keyboard { get; set; } = new KeyboardInputHandler();
 
     public static MouseInputHandler Mouse { get; set; } = new MouseInputHandler();
