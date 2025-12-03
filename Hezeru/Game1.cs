@@ -1,4 +1,5 @@
 ﻿using System;
+using Hezeru.Loaders;
 using Hezeru.Scenes;
 using KeplerEngine;
 using Microsoft.Xna.Framework;
@@ -65,7 +66,7 @@ public class Game1 : Game
         // Initialize debug overlay (null font is ok, just won't display text)
         _debugOverlay = new DebugOverlay(_consolasFont);
 
-        Globals.SceneManager.AddScene(new LoadingScene());
+        Globals.SceneManager.AddScene(new LoadingScene(new StartupLoader(), null));
     }
 
     protected override void Update(GameTime gameTime)

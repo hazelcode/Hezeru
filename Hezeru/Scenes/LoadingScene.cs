@@ -4,6 +4,7 @@ using KeplerEngine.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using Hezeru.Loaders;
 
 namespace Hezeru.Scenes;
 
@@ -13,6 +14,16 @@ public class LoadingScene : IScene, IDisposable
     private Animation _loadingWheelAnim;
     private ElementAnchorData _wheelAnchorData;
     private Rectangle _wheelPositionRect;
+
+    // The resources to be loaded before proceeding to destionation scene
+    private ILoader _loader;
+    // The scene to proceed, after the load process
+    private IScene _destinationScene;
+
+    public LoadingScene(ILoader loader, IScene destinationScene) {
+        _loader = loader;
+        _destinationScene = destinationScene;
+    }
 
     public void Load()
     {
