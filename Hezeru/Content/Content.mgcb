@@ -25,6 +25,20 @@
 /processorParam:TextureFormat=Color
 /build:Animations/LoadingWheel.png
 
+#begin Fonts/Consolas-18.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/Consolas-18.spritefont
+
+#begin Fonts/Consolas.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/Consolas.spritefont
+
 #begin Sprites/HezeruLogo.png
 /importer:TextureImporter
 /processor:TextureProcessor
