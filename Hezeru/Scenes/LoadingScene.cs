@@ -18,7 +18,7 @@ public class LoadingScene : IScene, IDisposable
     {
         _loadingWheelTex = Globals.Content.Load<Texture2D>("Animations/LoadingWheel");
         _loadingWheelAnim = new Animation(4, 4, new Vector2(16, 16), 10);
-        _wheelAnchorData = new ElementAnchorData(ElementAnchor.BottomRightCorner, -10, -10);
+        _wheelAnchorData = new ElementAnchorData(ElementAnchor.Center);
         _wheelPositionRect = new(0, 0, 64, 64);
     }
 
