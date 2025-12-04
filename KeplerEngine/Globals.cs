@@ -12,22 +12,55 @@ public class Globals
 
     public static RenderTarget2D RenderTarget { get; set; }
     
-    // UIScale: scale factor used to map native render target pixels to window pixels
+    /// <summary>
+    /// UIScale: scale factor used to map native render target pixels to window pixels
+    /// </summary>
     public static float UIScale { get; set; } = 1f;
 
-    // VisibleRenderTargetBounds: the rectangle (in native render-target coordinates)
-    // that is currently visible on screen after scaling (useful for anchoring)
+    /// <summary>
+    /// VisibleRenderTargetBounds: the rectangle (in native render-target coordinates)
+    ///  that is currently visible on screen after scaling (useful for anchoring)
+    /// </summary>
     public static Rectangle VisibleRenderTargetBounds { get; set; } = Rectangle.Empty;
     
-    // Rectangle (in window coordinates) where the RenderTarget is drawn
+    /// <summary>
+    /// Rectangle (in window coordinates) where the RenderTarget is drawn
+    /// </summary>
     public static Rectangle RenderTargetDisplayRect { get; set; } = Rectangle.Empty;
 
-    // Scaling modes
+    /// <summary>
+    /// Returns the visible render target bounds if they're not empty.
+    /// Otherwise, returns the bounds of the original render target.
+    /// </summary>
+    public static Rectangle GetVisibleRenderTargetBounds() {
+        var visible = Globals.VisibleRenderTargetBounds;
+        if (visible == Rectangle.Empty)
+            visible = Globals.RenderTarget.Bounds;
+        
+        return VisibleRenderTargetBounds == Rectangle.Empty
+            ? RenderTarget.Bounds
+            : VisibleRenderTargetBounds;
+    }
+
+    /// <summary>
+    /// Scaling modes
+    /// </summary>
     public enum ScalingMode
     {
-        Contain, // keep aspect ratio, whole canvas visible (letterbox)
-        Cover,   // fill window, may crop
-        Integer  // integer pixel-perfect scale (1x,2x,3x...)
+        /// <summary>
+        /// Keep aspect ratio, whole canvas visible (letterbox)
+        /// </summary>
+        Contain,
+
+        /// <summary>
+        /// Fill window, may crop.
+        /// </summary>
+        Cover,
+        
+        /// <summary>
+        /// Integer pixel-perfect scale (1x,2x,3x...)
+        /// </summary>
+        Integer
     }
 
     public static ScalingMode CurrentScalingMode { get; set; } = ScalingMode.Contain;
