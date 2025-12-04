@@ -33,6 +33,7 @@ public class MainMenuScene : IScene
 
     public void Draw()
     {
+        /// TODO: FIX!!
         // Draw at sprite rect position, because we don't have any camera in this scene
         _hezeruLogo.Draw(new Vector2(_hezeruLogo.Rect.X, _hezeruLogo.Rect.Y));
     }
