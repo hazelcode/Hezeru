@@ -13,7 +13,7 @@ public class Sprite
     public Color Color;
     public float LayerDepth;
     public Effect Shader;
-    public Rectangle Rect { get => GetBounds(); }
+    public Rectangle Rect { get => GetBounds(); set {} }
 
     public Sprite(Texture2D texture, Vector2? position = null, Effect shader = null)
     {

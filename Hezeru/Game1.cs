@@ -66,7 +66,7 @@ public class Game1 : Game
         // Initialize debug overlay (null font is ok, just won't display text)
         _debugOverlay = new DebugOverlay(_consolasFont);
 
-        Globals.SceneManager.AddScene(new LoadingScene(new StartupLoader(), null));
+        Globals.SceneManager.AddScene(new LoadingScene(new StartupLoader(), new MainMenuScene()));
     }
 
     protected override void Update(GameTime gameTime)

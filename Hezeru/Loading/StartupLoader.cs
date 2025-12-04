@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Hezeru.Scenes;
 using KeplerEngine;
 using KeplerEngine.Graphics;
+using KeplerEngine.GUI;
 using KeplerEngine.MemoryCaching;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -17,6 +18,5 @@ public class StartupLoader : ILoader
             "Sprites/HezeruLogo",
             new SpriteResource { Sprite = logoSprite }
         );
-        // Add more loading stages as needed
     }
 }
