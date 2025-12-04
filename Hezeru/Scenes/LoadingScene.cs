@@ -4,7 +4,9 @@ using KeplerEngine.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using Hezeru.Loaders;
+using Hezeru.Loading;
+using System.Collections.Generic;
+using KeplerEngine.MemoryCaching;
 
 namespace Hezeru.Scenes;
 
@@ -19,10 +21,13 @@ public class LoadingScene : IScene, IDisposable
     private ILoader _loader;
     // The scene to proceed, after the load process
     private IScene _destinationScene;
+    private IEnumerator<(string ResourceName, IResource Resource)> _resourcesEnumerator;
+    public static Dictionary<string, IResource> LoadedResources = [];
 
     public LoadingScene(ILoader loader, IScene destinationScene) {
         _loader = loader;
         _destinationScene = destinationScene;
+        _resourcesEnumerator = _loader.Stages().GetEnumerator();
     }
 
     public void Load()
@@ -41,6 +46,15 @@ public class LoadingScene : IScene, IDisposable
         if (visible == Rectangle.Empty)
             visible = Globals.RenderTarget.Bounds;
         _wheelAnchorData.AdjustToContainer(visible, ref _wheelPositionRect);
+
+        if(_resourcesEnumerator.MoveNext()) {
+            var resource = _resourcesEnumerator.Current;
+            // Process the resource loading if it's a LoadStage
+            LoadedResources.TryAdd(resource.ResourceName, resource.Resource);
+        } else {
+            // Loading complete, switch to destination scene
+            Globals.SceneManager.AddScene(_destinationScene, true);
+        }
     }
 
     public void Draw()

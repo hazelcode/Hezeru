@@ -1,5 +1,5 @@
 ﻿using System;
-using Hezeru.Loaders;
+using Hezeru.Loading;
 using Hezeru.Scenes;
 using KeplerEngine;
 using Microsoft.Xna.Framework;
