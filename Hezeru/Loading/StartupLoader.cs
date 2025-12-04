@@ -19,13 +19,4 @@ public class StartupLoader : ILoader
         );
         // Add more loading stages as needed
     }
-
-    public StartupLoader()
-    {
-        // Stages = new()
-        // {
-        //     {0, ("Preparing resources...", () => {})},
-        //     {1, ("Loading mods...", () => {})}
-        // };
-    }
 }
