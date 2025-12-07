@@ -27,13 +27,11 @@ public class StartupLoader : ILoader
             Point mousePosition = Mouse.GetState().Position;
             bool mousePointerFiring = Keyboard.GetState().IsKeyDown(Keys.Z) || Keyboard.GetState().IsKeyDown(Keys.X);
 
-            Point drawPoint = mousePointerFiring
-                ? new Point(mousePosition.X - 32, mousePosition.Y - 32)
-                : new Point(mousePosition.X - 16, mousePosition.Y - 16);
+            double mousePointerScale = mousePointerFiring ? 1.5 : 1;
 
-            Point drawSize = mousePointerFiring
-                ? new Point(64, 64)
-                : new Point(32, 32);
+            Point drawPoint = new Point(mousePosition.X - (int)(32.0 / mousePointerScale), mousePosition.Y - (int)(32.0 / mousePointerScale));
+
+            Point drawSize = new Point((int)(32.0 * mousePointerScale), (int)(32.0 * mousePointerScale));
 
             Globals.SpriteBatch.Draw(
                 mousePointerTex,
