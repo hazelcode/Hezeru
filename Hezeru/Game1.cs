@@ -25,12 +25,13 @@ public class Game1 : Game
         _graphics.PreferredBackBufferWidth = 800;
         _graphics.PreferredBackBufferHeight = 600;
         Content.RootDirectory = "Content";
-        IsMouseVisible = true;
+        IsMouseVisible = false;
 #if DEBUG
         Window.Title = "Hezeru (Development Mode)";
         Window.AllowUserResizing = true;
         Window.ClientSizeChanged += OnWindowResize;
         _graphics.SynchronizeWithVerticalRetrace = false;
+        IsMouseVisible = true;
 #endif
     }
 
