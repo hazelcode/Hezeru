@@ -1,4 +1,5 @@
-﻿using KeplerEngine.Input;
+﻿using System;
+using KeplerEngine.Input;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -94,6 +95,8 @@ public class Globals
         Touch.Update();
 
         SceneManager.GetCurrentScene().Update();
+        
+        OnUpdate(gameTime);
     }
 
     public static void Draw(GameTime gameTime)
@@ -101,5 +104,10 @@ public class Globals
         DrawTime = gameTime;
         DeltaTime = (float)DrawTime.ElapsedGameTime.TotalSeconds;
         SceneManager.GetCurrentScene().Draw();
+        
+        OnRender(gameTime);
     }
+
+    public static Action<GameTime> OnUpdate = (gt) => {};
+    public static Action<GameTime> OnRender = (gt) => {};
 }
