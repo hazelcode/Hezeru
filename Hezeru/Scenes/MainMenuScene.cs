@@ -1,19 +1,22 @@
 using KeplerEngine;
-using KeplerEngine.Graphics;
 using KeplerEngine.GUI;
 using KeplerEngine.MemoryCaching;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Hezeru.Scenes;
 
 public class MainMenuScene : IScene
 {
-    private Sprite _hezeruLogo;
+    private Texture2D _hezeruLogo;
     private ElementAnchorData _logoAnchor;
+    private Rectangle _logoRect;
     public void Load()
     {
-        _hezeruLogo = (LoadingScene.LoadedResources["Sprites/HezeruLogo"] as SpriteResource).Sprite;
+        _hezeruLogo = (LoadingScene.LoadedResources["Sprites/HezeruLogo"] as TextureResource).Texture;
         _logoAnchor = new ElementAnchorData(ElementAnchor.TopCenter, yOffset: 25);
+
+        _logoRect = new Rectangle(0, 0, _hezeruLogo.Width * 6, _hezeruLogo.Height * 6);
         
         // Free cached resources
         LoadingScene.LoadedResources.Clear();
@@ -25,16 +28,13 @@ public class MainMenuScene : IScene
         var visible = Globals.VisibleRenderTargetBounds;
         if (visible == Rectangle.Empty)
             visible = Globals.RenderTarget.Bounds;
-        
-        var hezeruLogoRect = _hezeruLogo.Rect;
-        _logoAnchor.AdjustToContainer(visible, ref hezeruLogoRect);
-        _hezeruLogo.Rect = hezeruLogoRect;
+
+        _logoAnchor.AdjustToContainer(visible, ref _logoRect);
     }
 
     public void Draw()
     {
-        /// TODO: FIX!!
-        // Draw at sprite rect position, because we don't have any camera in this scene
-        _hezeruLogo.Draw(new Vector2(_hezeruLogo.Rect.X, _hezeruLogo.Rect.Y));
+        // Draw with logo rect position, because we don't have any camera in this scene
+        Globals.SpriteBatch.Draw(_hezeruLogo, _logoRect, Color.White);
     }
 }
