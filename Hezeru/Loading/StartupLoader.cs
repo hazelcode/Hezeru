@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Hezeru.Scenes;
 using KeplerEngine;
@@ -20,7 +21,7 @@ public class StartupLoader : ILoader
             new TextureResource { Texture = logoTex }
         );
 
-        Texture2D mousePointerTex = Globals.Content.Load<Texture2D>("Sprites/MousePun");
+        Texture2D mousePointerTex = Globals.Content.Load<Texture2D>("Sprites/MousePointer");
 
         Globals.OnRender += (gt) =>
         {
