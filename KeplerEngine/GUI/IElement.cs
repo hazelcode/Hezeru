@@ -1,4 +1,6 @@
-﻿namespace KeplerEngine.GUI;
+﻿using Microsoft.Xna.Framework;
+
+namespace KeplerEngine.GUI;
 
 public interface IElement
 {
@@ -8,7 +10,7 @@ public interface IElement
 
     ElementAnchorData AnchorData { get; set; }
 
-    public void Update();
+    public void Update(GameTime gameTime);
 
-    public void Draw();
+    public void Draw(GameTime gameTime);
 }
