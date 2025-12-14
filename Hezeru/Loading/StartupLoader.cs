@@ -21,6 +21,12 @@ public class StartupLoader : ILoader
             new TextureResource { Texture = logoTex }
         );
 
+        Texture2D playButtonTex = Globals.Content.Load<Texture2D>(TexturePaths.MAIN_MENU_PLAY_BUTTON);
+        yield return (
+            TexturePaths.MAIN_MENU_PLAY_BUTTON,
+            new TextureResource { Texture = playButtonTex }
+        );
+
         Texture2D mousePointerTex = Globals.Content.Load<Texture2D>("Sprites/MousePointer");
 
         Globals.OnRender += (gt) =>
