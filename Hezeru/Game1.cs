@@ -13,17 +13,17 @@ public class Game1 : Game
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
     private RenderTarget2D _renderTarget;
-    private const int NATIVE_WIDTH = 800;
-    private const int NATIVE_HEIGHT = 600;
+    private const int NATIVE_WIDTH = 1280;
+    private const int NATIVE_HEIGHT = 720;
     private DebugOverlay _debugOverlay;
     private SpriteFont _consolasFont;
 
     public Game1()
     {
         _graphics = new GraphicsDeviceManager(this);
-        // Apply a 800x600 resolution
-        _graphics.PreferredBackBufferWidth = 800;
-        _graphics.PreferredBackBufferHeight = 600;
+        // Apply a 960x540 resolution
+        _graphics.PreferredBackBufferWidth = 960;
+        _graphics.PreferredBackBufferHeight = 540;
         Content.RootDirectory = "Content";
         IsMouseVisible = false;
 #if DEBUG
