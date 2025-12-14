@@ -99,7 +99,7 @@ public class Button : IElement
         };
     }
 
-    public void Draw()
+    public void Draw(GameTime gameTime)
     {
         if (Hidden)
             return;
@@ -135,7 +135,7 @@ public class Button : IElement
 
     }
 
-    public void Update()
+    public void Update(GameTime gameTime)
     {
         var visible = Globals.VisibleRenderTargetBounds;
         if (visible == Rectangle.Empty)
