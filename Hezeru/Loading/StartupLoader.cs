@@ -31,12 +31,18 @@ public class StartupLoader : ILoader
 
         Globals.OnRender += (gt) =>
         {
-            Point mousePosition = Mouse.GetState().Position;
+            Point windowMousePos = Mouse.GetState().Position;
+            
+            // Convert window coordinates to native RenderTarget coordinates
+            Point renderTargetMouse = new Point(
+                (int)((windowMousePos.X - Globals.RenderTargetDisplayRect.X) / Globals.UIScale),
+                (int)((windowMousePos.Y - Globals.RenderTargetDisplayRect.Y) / Globals.UIScale));
+            
             bool mousePointerFiring = Keyboard.GetState().IsKeyDown(Keys.Z) || Keyboard.GetState().IsKeyDown(Keys.X);
 
             double mousePointerScale = mousePointerFiring ? 1.5 : 1;
 
-            Point drawPoint = new Point(mousePosition.X - (int)(16.0 * mousePointerScale), mousePosition.Y - (int)(16.0 * mousePointerScale));
+            Point drawPoint = new Point(renderTargetMouse.X - (int)(16.0 * mousePointerScale), renderTargetMouse.Y - (int)(16.0 * mousePointerScale));
 
             Point drawSize = new Point((int)(32.0 * mousePointerScale), (int)(32.0 * mousePointerScale));
 
