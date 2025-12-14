@@ -126,8 +126,8 @@ public class Game1 : Game
         float invScale = 1f / scale;
         float visXf = Math.Max(0f, -offsetX * invScale);
         float visYf = Math.Max(0f, -offsetY * invScale);
-        float visWf = Math.Min((float)NATIVE_WIDTH - visXf, winW * invScale);
-        float visHf = Math.Min((float)NATIVE_HEIGHT - visYf, winH * invScale);
+        float visWf = Math.Min(NATIVE_WIDTH - visXf, winW * invScale);
+        float visHf = Math.Min(NATIVE_HEIGHT - visYf, winH * invScale);
 
         Globals.UIScale = scale;
         Globals.VisibleRenderTargetBounds = new Rectangle(
