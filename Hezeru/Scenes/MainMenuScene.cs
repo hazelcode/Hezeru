@@ -17,7 +17,7 @@ public class MainMenuScene : IScene
 
     public void Load()
     {
-        _hezeruLogo = (LoadingScene.LoadedResources["Sprites/HezeruLogo"] as TextureResource).Texture;
+        _hezeruLogo = (LoadingScene.LoadedResources[TexturePaths.HEZERU_LOGO] as TextureResource).Texture;
         _playButtonTexture = (LoadingScene.LoadedResources[TexturePaths.MAIN_MENU_PLAY_BUTTON] as TextureResource).Texture;
         _playButton = new MainMenuPlayButton(_playButtonTexture);
         _logoAnchor = new ElementAnchorData(ElementAnchor.TopCenter, yOffset: 25);

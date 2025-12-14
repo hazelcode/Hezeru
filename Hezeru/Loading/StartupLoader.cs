@@ -15,9 +15,9 @@ public class StartupLoader : ILoader
 {
     public IEnumerable<(string ResourceName, IResource Resource)> Stages()
     {
-        Texture2D logoTex = Globals.Content.Load<Texture2D>("Sprites/HezeruLogo");
+        Texture2D logoTex = Globals.Content.Load<Texture2D>(TexturePaths.HEZERU_LOGO);
         yield return (
-            "Sprites/HezeruLogo",
+            TexturePaths.HEZERU_LOGO,
             new TextureResource { Texture = logoTex }
         );
 
@@ -27,7 +27,7 @@ public class StartupLoader : ILoader
             new TextureResource { Texture = playButtonTex }
         );
 
-        Texture2D mousePointerTex = Globals.Content.Load<Texture2D>("Sprites/MousePointer");
+        Texture2D mousePointerTex = Globals.Content.Load<Texture2D>(TexturePaths.MOUSE_POINTER);
 
         Globals.OnRender += (gt) =>
         {
