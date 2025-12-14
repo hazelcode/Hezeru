@@ -19,9 +19,9 @@ public class TextureAtlas
         _columns = columns;
         _rows = rows;
 
-        for (int i = 0; i < _rows; i++)
+        for (int i = 0; i < (_rows - 1); i++)
         {
-            for(int j = 0; j < _columns; j++) 
+            for (int j = 0; j < (_columns - 1); j++)
             {
                 _tilesCoords.Add(new Point(j * _tileWidth, i * _tileHeight));
             }
