@@ -38,7 +38,11 @@ public class StartupLoader : ILoader
                 (int)((windowMousePos.X - Globals.RenderTargetDisplayRect.X) / Globals.UIScale),
                 (int)((windowMousePos.Y - Globals.RenderTargetDisplayRect.Y) / Globals.UIScale));
             
-            bool mousePointerFiring = Keyboard.GetState().IsKeyDown(Keys.Z) || Keyboard.GetState().IsKeyDown(Keys.X);
+            bool mousePointerFiring =
+                Keyboard.GetState().IsKeyDown(Keys.Z)
+                || Keyboard.GetState().IsKeyDown(Keys.X)
+                || Mouse.GetState().LeftButton == ButtonState.Pressed
+                || Mouse.GetState().RightButton == ButtonState.Pressed;
 
             double mousePointerScale = mousePointerFiring ? 1.5 : 1;
 
