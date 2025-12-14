@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 
 namespace KeplerEngine.GUI;
 
@@ -10,19 +11,19 @@ public class Overlay
     //public int X { get; set; }
     //public int Y { get; set; }
 
-    public void Update()
+    public void Update(GameTime gameTime)
     {
         foreach(var element in Elements)
         {
-            element.Value.Update();
+            element.Value.Update(gameTime);
         }
     }
 
-    public void Draw()
+    public void Draw(GameTime gameTime)
     {
         foreach (var element in Elements)
         {
-            element.Value.Draw();
+            element.Value.Draw(gameTime);
         }
     }
 }
