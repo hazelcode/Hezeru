@@ -44,7 +44,7 @@ public class StartupLoader : ILoader
                 || Mouse.GetState().LeftButton == ButtonState.Pressed
                 || Mouse.GetState().RightButton == ButtonState.Pressed;
 
-            double mousePointerScale = mousePointerFiring ? 1.5 : 1;
+            double mousePointerScale = mousePointerFiring ? 1.25 : 1;
 
             Point drawPoint = new Point(renderTargetMouse.X - (int)(24.0 * mousePointerScale), renderTargetMouse.Y - (int)(24.0 * mousePointerScale));
 
