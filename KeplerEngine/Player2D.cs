@@ -9,12 +9,12 @@ namespace KeplerEngine;
 
 class Player2D : Sprite
 {
-    readonly List<Sprite> collisionGroup;
+    public readonly List<Sprite> CollisionGroup;
     float Speed = 200f;
 
     public Player2D(Texture2D texture, Vector2 position, List<Sprite> collisionGroup) : base(texture, position)
     {
-        this.collisionGroup = collisionGroup;
+        this.CollisionGroup = collisionGroup;
     }
 
     public override void Update()
@@ -37,7 +37,7 @@ class Player2D : Sprite
 
         Position.X += movement.X * Speed * (float)Globals.UpdateTime.ElapsedGameTime.TotalSeconds;
 
-        foreach (var sprite in collisionGroup)
+        foreach (var sprite in CollisionGroup)
         {
             if (sprite != this && sprite.Rect.Intersects(Rect))
             {
@@ -61,7 +61,7 @@ class Player2D : Sprite
 
         Position.Y += movement.Y * Speed * (float)Globals.UpdateTime.ElapsedGameTime.TotalSeconds;
 
-        foreach (var sprite in collisionGroup)
+        foreach (var sprite in CollisionGroup)
         {
             if (sprite != this && sprite.Rect.Intersects(Rect))
             {
