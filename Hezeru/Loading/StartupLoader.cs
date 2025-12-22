@@ -21,9 +21,9 @@ public class StartupLoader : ILoader
             new TextureResource { Texture = logoTex }
         );
 
-        Texture2D playButtonTex = Globals.Content.Load<Texture2D>(TexturePaths.MAIN_MENU_PLAY_BUTTON);
+        Texture2D playButtonTex = Globals.Content.Load<Texture2D>(TexturePaths.MAIN_MENU_PLAY_BUTTON_ATLAS);
         yield return (
-            TexturePaths.MAIN_MENU_PLAY_BUTTON,
+            TexturePaths.MAIN_MENU_PLAY_BUTTON_ATLAS,
             new TextureResource { Texture = playButtonTex }
         );
 
@@ -32,12 +32,12 @@ public class StartupLoader : ILoader
         Globals.OnRender += (gt) =>
         {
             Point windowMousePos = Mouse.GetState().Position;
-            
+
             // Convert window coordinates to native RenderTarget coordinates
             Point renderTargetMouse = new Point(
                 (int)((windowMousePos.X - Globals.RenderTargetDisplayRect.X) / Globals.UIScale),
                 (int)((windowMousePos.Y - Globals.RenderTargetDisplayRect.Y) / Globals.UIScale));
-            
+
             bool mousePointerFiring =
                 Keyboard.GetState().IsKeyDown(Keys.Z)
                 || Keyboard.GetState().IsKeyDown(Keys.X)

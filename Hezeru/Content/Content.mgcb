@@ -75,7 +75,7 @@
 /processorParam:TextureFormat=Color
 /build:Sprites/MousePointer.png
 
-#begin Sprites/UI/PlayButton.png
+#begin Atlases/UI/MainMenuPlayButton.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -85,5 +85,5 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Sprites/UI/PlayButton.png
+/build:Atlases/UI/MainMenuPlayButton.png
 
