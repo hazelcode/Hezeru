@@ -36,7 +36,7 @@ public class AsepriteAnimation
           .Where((f) => f.FileName.Contains(tag))
           .ToList();
 
-        if (_currentAnimation == null)
+        if (_currentAnimation.Count == 0)
         {
             throw new Exception($"The tag \"{tag}\" doesn't exist in the data of the animation");
         }
@@ -68,9 +68,13 @@ public class AsepriteAnimation
 
         if (_currentDuration > _currentAnimation[_currentFrameNumber].Duration)
         {
-            _currentFrameNumber = (_currentAnimation.Count - 1) >= _currentFrameNumber
-              ? _currentFrameNumber = 0
-              : _currentFrameNumber++;
+            _currentFrameNumber++;
+            if (_currentFrameNumber >= _currentAnimation.Count)
+            {
+                _currentFrameNumber = 0;
+            }
+
+            _currentDuration = 0;
         }
 
         _sourceRect = CalculateSourceRectangle();
