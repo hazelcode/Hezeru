@@ -84,12 +84,12 @@ public class AsepriteAnimation
         return new Rectangle(x, y, width, height);
     }
 
-    public void Update()
+    public void Update(GameTime gameTime)
     {
         if (_isPaused)
             return;
 
-        _currentDuration += Globals.DrawTime.ElapsedGameTime.TotalMilliseconds;
+        _currentDuration += gameTime.ElapsedGameTime.TotalMilliseconds;
 
         if (_currentDuration > _currentAnimation[_currentFrameNumber].Duration)
         {
