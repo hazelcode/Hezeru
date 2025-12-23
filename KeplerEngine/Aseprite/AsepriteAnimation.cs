@@ -24,6 +24,8 @@ public class AsepriteAnimation
 
     private int _currentFrameNumber = 0;
 
+    private bool _isPaused = false;
+
     public AsepriteAnimation(AnimationData data, Texture2D texture)
     {
         _data = data;
@@ -44,6 +46,22 @@ public class AsepriteAnimation
         {
             throw new Exception($"The tag \"{tag}\" doesn't exist in the data of the animation");
         }
+    }
+
+    public void ResetAnimation()
+    {
+        _currentFrameNumber = 0;
+        _currentDuration = 0;
+    }
+
+    public void Pause()
+    {
+        _isPaused = true;
+    }
+
+    public void Resume()
+    {
+        _isPaused = false;
     }
 
     public void ChangeDestinationRectangleReference(ref Rectangle destRect)
@@ -68,6 +86,9 @@ public class AsepriteAnimation
 
     public void Update()
     {
+        if (_isPaused)
+            return;
+
         _currentDuration += Globals.DrawTime.ElapsedGameTime.TotalMilliseconds;
 
         if (_currentDuration > _currentAnimation[_currentFrameNumber].Duration)
