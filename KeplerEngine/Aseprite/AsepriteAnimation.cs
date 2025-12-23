@@ -32,8 +32,12 @@ public class AsepriteAnimation
 
     public void PrepareAnimationTag(string tag)
     {
+        var tagData = _data.Meta.FrameTags
+          .First(t => t.Name == tag);
+
         _currentAnimation = _data.Frames
-          .Where((f) => f.FileName.Contains(tag))
+          .Skip(tagData.From)
+          .Take(tagData.To - tagData.From + 1)
           .ToList();
 
         if (_currentAnimation.Count == 0)
