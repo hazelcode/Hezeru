@@ -14,6 +14,7 @@ public class MainMenuScene : IScene
     private ElementAnchorData _logoAnchor;
     private Rectangle _logoRect;
     private MainMenuPlayButton _playButton;
+    private Texture2D _background;
 
     public void Load()
     {
@@ -21,9 +22,10 @@ public class MainMenuScene : IScene
         _playButtonTexture = (LoadingScene.LoadedResources[TexturePaths.MAIN_MENU_PLAY_BUTTON_ATLAS] as TextureResource).Texture;
         _playButton = new MainMenuPlayButton(_playButtonTexture);
         _logoAnchor = new ElementAnchorData(ElementAnchor.TopCenter, yOffset: 25);
+        _background = (LoadingScene.LoadedResources[TexturePaths.MAIN_MENU_BACKGROUND] as TextureResource).Texture;
 
         _logoRect = new Rectangle(0, 0, _hezeruLogo.Width * 6, _hezeruLogo.Height * 6);
-        
+
         // Free cached resources
         LoadingScene.LoadedResources.Clear();
     }
@@ -41,9 +43,11 @@ public class MainMenuScene : IScene
 
     public void Draw()
     {
+        Globals.SpriteBatch.Draw(_background, Globals.GetVisibleRenderTargetBounds(), Color.White);
+
         // Draw with logo rect position, because we don't have any camera in this scene
         Globals.SpriteBatch.Draw(_hezeruLogo, _logoRect, Color.White);
-        
+
         _playButton.Draw(Globals.DrawTime);
     }
 }

@@ -71,5 +71,12 @@ public class StartupLoader : ILoader
             TexturePaths.WORLD_TERRAIN_ATLAS,
             new TextureResource { Texture = WorldTerrainAtlas }
         );
+
+        Texture2D MainMenuBackgroundTexture = Globals.Content.Load<Texture2D>(TexturePaths.MAIN_MENU_BACKGROUND);
+
+        yield return (
+            TexturePaths.MAIN_MENU_BACKGROUND,
+            new TextureResource { Texture = MainMenuBackgroundTexture }
+        );
     }
 }

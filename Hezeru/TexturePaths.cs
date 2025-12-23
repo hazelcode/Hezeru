@@ -13,4 +13,6 @@ public static class TexturePaths
     public const string WORLD_TERRAIN_ATLAS = "Atlases/WorldTerrain";
 
     public const string PLAYER_ANIMATION = "Animations/Player";
+
+    public const string MAIN_MENU_BACKGROUND = "Sprites/UI/MainMenuBackground";
 }
