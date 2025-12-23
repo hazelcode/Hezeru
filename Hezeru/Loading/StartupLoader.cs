@@ -1,5 +1,8 @@
+using System.IO;
+using System.Text.Json;
 using System.Collections.Generic;
 using KeplerEngine;
+using KeplerEngine.Aseprite;
 using KeplerEngine.MemoryCaching;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -51,5 +54,22 @@ public class StartupLoader : ILoader
                 new Rectangle(drawPoint, drawSize),
                 Color.White);
         };
+
+        Texture2D playerAnimationTexture = Globals.Content.Load<Texture2D>(TexturePaths.PLAYER_ANIMATION);
+        string playerAnimationJson = File.ReadAllText("Content/Animations/Player.json");
+        AnimationData playerAnimationData = JsonSerializer.Deserialize<AnimationData>(playerAnimationJson);
+        AsepriteAnimation playerAnimation = new AsepriteAnimation(playerAnimationData, playerAnimationTexture);
+
+        yield return (
+            TexturePaths.PLAYER_ANIMATION,
+            new AsepriteAnimationResource { Animation = playerAnimation }
+        );
+
+        Texture2D WorldTerrainAtlas = Globals.Content.Load<Texture2D>(TexturePaths.WORLD_TERRAIN_ATLAS);
+
+        yield return (
+            TexturePaths.WORLD_TERRAIN_ATLAS,
+            new TextureResource { Texture = WorldTerrainAtlas }
+        );
     }
 }

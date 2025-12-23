@@ -11,4 +11,6 @@ public static class TexturePaths
     public const string MAIN_MENU_PLAY_BUTTON_ATLAS = "Atlases/UI/MainMenuPlayButton";
 
     public const string WORLD_TERRAIN_ATLAS = "Atlases/WorldTerrain";
+
+    public const string PLAYER_ANIMATION = "Animations/Player";
 }
