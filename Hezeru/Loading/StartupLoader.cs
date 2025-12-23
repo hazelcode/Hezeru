@@ -1,9 +1,5 @@
-using System;
 using System.Collections.Generic;
-using Hezeru.Scenes;
 using KeplerEngine;
-using KeplerEngine.Graphics;
-using KeplerEngine.GUI;
 using KeplerEngine.MemoryCaching;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
