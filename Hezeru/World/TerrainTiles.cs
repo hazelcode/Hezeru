@@ -1,7 +1,8 @@
 namespace Hezeru.World;
 
-public enum TerrainTiles : byte
+public enum TerrainTiles : sbyte
 {
+    None = -1,
     #region Grassy and dirty tiles
     Grass = 0,
     GrassWithFlowers = 1,
