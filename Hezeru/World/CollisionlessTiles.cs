@@ -8,8 +8,8 @@ public enum CollisionlessTiles : sbyte
     GreenPortal = 1,
     #endregion
     #region Leaves
-    DryLeaves = 2,
-    DryWitheredLeaves = 3,
-    GreenLeaves = 4
+    DryLeaves = 3,
+    DryWitheredLeaves = 4,
+    GreenLeaves = 5
     #endregion
 }
