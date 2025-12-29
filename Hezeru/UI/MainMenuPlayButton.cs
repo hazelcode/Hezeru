@@ -1,4 +1,6 @@
 using System.Drawing;
+using Hezeru.Scenes;
+using KeplerEngine;
 using KeplerEngine.GUI;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -10,6 +12,9 @@ public class MainMenuPlayButton : TextureButton
     {
         AnchorData = new ElementAnchorData(ElementAnchor.TopCenter, 0, 126);
         OnClick = () => { };
-        OnRelease = () => { };
+        OnRelease = () =>
+        {
+            Globals.SceneManager.AddScene(new WorldSelectorScene(), true);
+        };
     }
 }

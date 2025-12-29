@@ -1,3 +1,4 @@
+using System;
 using Hezeru.UI;
 using KeplerEngine;
 using KeplerEngine.GUI;
@@ -7,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Hezeru.Scenes;
 
-public class MainMenuScene : IScene
+public class MainMenuScene : IScene, IDisposable
 {
     private Texture2D _hezeruLogo;
     private Texture2D _playButtonTexture;
@@ -26,8 +27,10 @@ public class MainMenuScene : IScene
 
         _logoRect = new Rectangle(0, 0, _hezeruLogo.Width * 6, _hezeruLogo.Height * 6);
 
-        // Free cached resources
-        LoadingScene.LoadedResources.Clear();
+        // Conserve cached resources, we don't want to re-load resources
+        // in case the player gets back to this screen.
+        // ONLY clear this instances when Dispose() is triggered.
+        // Instances will re-generate when getting back to this scene.
     }
 
     public void Update()
@@ -49,5 +52,17 @@ public class MainMenuScene : IScene
         Globals.SpriteBatch.Draw(_hezeruLogo, _logoRect, Color.White);
 
         _playButton.Draw(Globals.DrawTime);
+    }
+
+    public void Dispose()
+    {
+        // Clear class instances.
+        // The Garbage Collector should do their work.
+        _hezeruLogo = null;
+        _playButtonTexture = null;
+        _playButton = null;
+        _logoAnchor = new ElementAnchorData();
+        _background = null;
+        _logoRect = new Rectangle();
     }
 }

@@ -78,5 +78,19 @@ public class StartupLoader : ILoader
             TexturePaths.MAIN_MENU_BACKGROUND,
             new TextureResource { Texture = MainMenuBackgroundTexture }
         );
+
+        SpriteFont consolasFont = Globals.Content.Load<SpriteFont>("Fonts/Consolas");
+
+        yield return (
+            "Fonts/Consolas",
+            new SpriteFontResource { Font = consolasFont }
+            );
+
+        SpriteFont consolas18Font = Globals.Content.Load<SpriteFont>("Fonts/Consolas-18");
+
+        yield return (
+            "Fonts/Consolas-18",
+            new SpriteFontResource { Font = consolas18Font }
+            );
     }
 }
