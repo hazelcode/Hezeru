@@ -24,7 +24,8 @@ public class LoadingScene : IScene, IDisposable
     private IEnumerator<(string ResourceName, IResource Resource)> _resourcesEnumerator;
     public static Dictionary<string, IResource> LoadedResources = [];
 
-    public LoadingScene(ILoader loader, IScene destinationScene) {
+    public LoadingScene(ILoader loader, IScene destinationScene)
+    {
         _loader = loader;
         _destinationScene = destinationScene;
         _resourcesEnumerator = _loader.Stages().GetEnumerator();
@@ -32,7 +33,7 @@ public class LoadingScene : IScene, IDisposable
 
     public void Load()
     {
-        _loadingWheelTex = Globals.Content.Load<Texture2D>(TexturePaths.LOADING_WHEEL_ANIMATION);
+        _loadingWheelTex = Globals.Content.Load<Texture2D>(ResourcePaths.Animations.LOADING_WHEEL);
         _loadingWheelAnim = new Animation(4, 4, new Vector2(16, 16), 10);
         _wheelAnchorData = new ElementAnchorData(ElementAnchor.Center);
         _wheelPositionRect = new(0, 0, 64, 64);
@@ -47,11 +48,14 @@ public class LoadingScene : IScene, IDisposable
             visible = Globals.RenderTarget.Bounds;
         _wheelAnchorData.AdjustToContainer(visible, ref _wheelPositionRect);
 
-        if(_resourcesEnumerator.MoveNext()) {
+        if (_resourcesEnumerator.MoveNext())
+        {
             var resource = _resourcesEnumerator.Current;
             // Process the resource loading if it's a LoadStage
             LoadedResources.TryAdd(resource.ResourceName, resource.Resource);
-        } else {
+        }
+        else
+        {
             // Loading complete, switch to destination scene
             Globals.SceneManager.AddScene(_destinationScene, true);
         }

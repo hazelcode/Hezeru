@@ -14,19 +14,19 @@ public class StartupLoader : ILoader
 {
     public IEnumerable<(string ResourceName, IResource Resource)> Stages()
     {
-        Texture2D logoTex = Globals.Content.Load<Texture2D>(TexturePaths.HEZERU_LOGO);
+        Texture2D logoTex = Globals.Content.Load<Texture2D>(ResourcePaths.Textures.MainMenu.LOGO);
         yield return (
-            TexturePaths.HEZERU_LOGO,
+            ResourcePaths.Textures.MainMenu.LOGO,
             new TextureResource { Texture = logoTex }
         );
 
-        Texture2D playButtonTex = Globals.Content.Load<Texture2D>(TexturePaths.MAIN_MENU_PLAY_BUTTON_ATLAS);
+        Texture2D playButtonTex = Globals.Content.Load<Texture2D>(ResourcePaths.Atlases.MainMenu.PLAY_BUTTON);
         yield return (
-            TexturePaths.MAIN_MENU_PLAY_BUTTON_ATLAS,
+            ResourcePaths.Atlases.MainMenu.PLAY_BUTTON,
             new TextureResource { Texture = playButtonTex }
         );
 
-        Texture2D mousePointerTex = Globals.Content.Load<Texture2D>(TexturePaths.MOUSE_POINTER);
+        Texture2D mousePointerTex = Globals.Content.Load<Texture2D>(ResourcePaths.Textures.UI.MOUSE_POINTER);
 
         Globals.OnRender += (gt) =>
         {
@@ -55,41 +55,41 @@ public class StartupLoader : ILoader
                 Color.White);
         };
 
-        Texture2D playerAnimationTexture = Globals.Content.Load<Texture2D>(TexturePaths.PLAYER_ANIMATION);
-        string playerAnimationJson = File.ReadAllText("Content/Animations/Player.json");
+        Texture2D playerAnimationTexture = Globals.Content.Load<Texture2D>(ResourcePaths.Animations.PLAYER);
+        string playerAnimationJson = File.ReadAllText(ResourcePaths.Animations.Json.PLAYER);
         AnimationData playerAnimationData = JsonSerializer.Deserialize<AnimationData>(playerAnimationJson);
         AsepriteAnimation playerAnimation = new AsepriteAnimation(playerAnimationData, playerAnimationTexture);
 
         yield return (
-            TexturePaths.PLAYER_ANIMATION,
+            ResourcePaths.Animations.PLAYER,
             new AsepriteAnimationResource { Animation = playerAnimation }
         );
 
-        Texture2D WorldTerrainAtlas = Globals.Content.Load<Texture2D>(TexturePaths.WORLD_TERRAIN_ATLAS);
+        Texture2D WorldTerrainAtlas = Globals.Content.Load<Texture2D>(ResourcePaths.Atlases.World.TERRAIN_TILES);
 
         yield return (
-            TexturePaths.WORLD_TERRAIN_ATLAS,
+            ResourcePaths.Atlases.World.TERRAIN_TILES,
             new TextureResource { Texture = WorldTerrainAtlas }
         );
 
-        Texture2D MainMenuBackgroundTexture = Globals.Content.Load<Texture2D>(TexturePaths.MAIN_MENU_BACKGROUND);
+        Texture2D MainMenuBackgroundTexture = Globals.Content.Load<Texture2D>(ResourcePaths.Textures.MainMenu.BACKGROUND);
 
         yield return (
-            TexturePaths.MAIN_MENU_BACKGROUND,
+            ResourcePaths.Textures.MainMenu.BACKGROUND,
             new TextureResource { Texture = MainMenuBackgroundTexture }
         );
 
-        SpriteFont consolasFont = Globals.Content.Load<SpriteFont>("Fonts/Consolas");
+        SpriteFont consolasFont = Globals.Content.Load<SpriteFont>(ResourcePaths.Fonts.CONSOLAS);
 
         yield return (
-            "Fonts/Consolas",
+            ResourcePaths.Fonts.CONSOLAS,
             new SpriteFontResource { Font = consolasFont }
             );
 
-        SpriteFont consolas18Font = Globals.Content.Load<SpriteFont>("Fonts/Consolas-18");
+        SpriteFont consolas18Font = Globals.Content.Load<SpriteFont>(ResourcePaths.Fonts.CONSOLAS_18);
 
         yield return (
-            "Fonts/Consolas-18",
+            ResourcePaths.Fonts.CONSOLAS_18,
             new SpriteFontResource { Font = consolas18Font }
             );
     }
