@@ -1,3 +1,3 @@
 namespace KeplerEngine.MemoryCaching;
 
-public interface IResource {}
+public interface IResource { }

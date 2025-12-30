@@ -17,13 +17,13 @@ public class StartupLoader : ILoader
         Texture2D logoTex = Globals.Content.Load<Texture2D>(ResourcePaths.Textures.MainMenu.LOGO);
         yield return (
             ResourcePaths.Textures.MainMenu.LOGO,
-            new TextureResource { Texture = logoTex }
+            new Resource<Texture2D> { Data = logoTex }
         );
 
         Texture2D playButtonTex = Globals.Content.Load<Texture2D>(ResourcePaths.Atlases.MainMenu.PLAY_BUTTON);
         yield return (
             ResourcePaths.Atlases.MainMenu.PLAY_BUTTON,
-            new TextureResource { Texture = playButtonTex }
+            new Resource<Texture2D> { Data = playButtonTex }
         );
 
         Texture2D mousePointerTex = Globals.Content.Load<Texture2D>(ResourcePaths.Textures.UI.MOUSE_POINTER);
@@ -62,35 +62,35 @@ public class StartupLoader : ILoader
 
         yield return (
             ResourcePaths.Animations.PLAYER,
-            new AsepriteAnimationResource { Animation = playerAnimation }
+            new Resource<AsepriteAnimation> { Data = playerAnimation }
         );
 
-        Texture2D WorldTerrainAtlas = Globals.Content.Load<Texture2D>(ResourcePaths.Atlases.World.TERRAIN_TILES);
+        Texture2D worldTerrainAtlas = Globals.Content.Load<Texture2D>(ResourcePaths.Atlases.World.TERRAIN_TILES);
 
         yield return (
             ResourcePaths.Atlases.World.TERRAIN_TILES,
-            new TextureResource { Texture = WorldTerrainAtlas }
+            new Resource<Texture2D> { Data = worldTerrainAtlas }
         );
 
-        Texture2D MainMenuBackgroundTexture = Globals.Content.Load<Texture2D>(ResourcePaths.Textures.MainMenu.BACKGROUND);
+        Texture2D mainMenuBackgroundTexture = Globals.Content.Load<Texture2D>(ResourcePaths.Textures.MainMenu.BACKGROUND);
 
         yield return (
             ResourcePaths.Textures.MainMenu.BACKGROUND,
-            new TextureResource { Texture = MainMenuBackgroundTexture }
+            new Resource<Texture2D> { Data = mainMenuBackgroundTexture }
         );
 
         SpriteFont consolasFont = Globals.Content.Load<SpriteFont>(ResourcePaths.Fonts.CONSOLAS);
 
         yield return (
             ResourcePaths.Fonts.CONSOLAS,
-            new SpriteFontResource { Font = consolasFont }
+            new Resource<SpriteFont> { Data = consolasFont }
             );
 
         SpriteFont consolas18Font = Globals.Content.Load<SpriteFont>(ResourcePaths.Fonts.CONSOLAS_18);
 
         yield return (
             ResourcePaths.Fonts.CONSOLAS_18,
-            new SpriteFontResource { Font = consolas18Font }
+            new Resource<SpriteFont> { Data = consolas18Font }
             );
     }
 }

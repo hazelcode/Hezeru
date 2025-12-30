@@ -19,11 +19,11 @@ public class MainMenuScene : IScene, IDisposable
 
     public void Load()
     {
-        _hezeruLogo = (LoadingScene.LoadedResources[ResourcePaths.Textures.MainMenu.LOGO] as TextureResource).Texture;
-        _playButtonTexture = (LoadingScene.LoadedResources[ResourcePaths.Atlases.MainMenu.PLAY_BUTTON] as TextureResource).Texture;
+        _hezeruLogo = (LoadingScene.LoadedResources[ResourcePaths.Textures.MainMenu.LOGO] as Resource<Texture2D>).Data;
+        _playButtonTexture = (LoadingScene.LoadedResources[ResourcePaths.Atlases.MainMenu.PLAY_BUTTON] as Resource<Texture2D>).Data;
         _playButton = new MainMenuPlayButton(_playButtonTexture);
         _logoAnchor = new ElementAnchorData(ElementAnchor.TopCenter, yOffset: 25);
-        _background = (LoadingScene.LoadedResources[ResourcePaths.Textures.MainMenu.BACKGROUND] as TextureResource).Texture;
+        _background = (LoadingScene.LoadedResources[ResourcePaths.Textures.MainMenu.BACKGROUND] as Resource<Texture2D>).Data;
 
         _logoRect = new Rectangle(0, 0, _hezeruLogo.Width * 6, _hezeruLogo.Height * 6);
 

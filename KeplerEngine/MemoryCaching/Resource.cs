@@ -1,6 +1,6 @@
 namespace KeplerEngine.MemoryCaching;
 
-public class Resource : IResource
+public class Resource<T> : IResource
 {
-    public object Object;
+    public T Data;
 }

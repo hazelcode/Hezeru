@@ -16,8 +16,8 @@ public class WorldSelectorScene : IScene
 
     public void Load()
     {
-        _background = (LoadingScene.LoadedResources[ResourcePaths.Textures.MainMenu.BACKGROUND] as TextureResource).Texture;
-        _consolas18Font = (LoadingScene.LoadedResources[ResourcePaths.Fonts.CONSOLAS_18] as SpriteFontResource).Font;
+        _background = (LoadingScene.LoadedResources[ResourcePaths.Textures.MainMenu.BACKGROUND] as Resource<Texture2D>).Data;
+        _consolas18Font = (LoadingScene.LoadedResources[ResourcePaths.Fonts.CONSOLAS_18] as Resource<SpriteFont>).Data;
         _selectWorldTextAnchor = new ElementAnchorData(ElementAnchor.TopCenter, 0, 30);
         _selectWorldTextRect = new Rectangle(Point.Zero, _consolas18Font.MeasureString(selectWorldText).ToPoint());
     }
