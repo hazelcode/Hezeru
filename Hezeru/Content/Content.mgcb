@@ -78,7 +78,7 @@
 /processorParam:TextureFormat=Compressed
 /build:Fonts/Consolas.spritefont
 
-#begin Sprites/HezeruLogo.png
+#begin Textures/HezeruLogo.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -88,9 +88,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Sprites/HezeruLogo.png
+/build:Textures/HezeruLogo.png
 
-#begin Sprites/MousePointer.png
+#begin Textures/MousePointer.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -100,9 +100,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Sprites/MousePointer.png
+/build:Textures/MousePointer.png
 
-#begin Sprites/UI/MainMenuBackground.png
+#begin Textures/UI/MainMenuBackground.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -112,5 +112,5 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Sprites/UI/MainMenuBackground.png
+/build:Textures/UI/MainMenuBackground.png
 

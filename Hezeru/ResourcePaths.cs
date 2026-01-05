@@ -39,13 +39,13 @@ public static class ResourcePaths
     {
         public static class MainMenu
         {
-            public const string LOGO = "Sprites/HezeruLogo";
-            public const string BACKGROUND = "Sprites/UI/MainMenuBackground";
+            public const string LOGO = "Textures/HezeruLogo";
+            public const string BACKGROUND = "Textures/UI/MainMenuBackground";
         }
 
         public static class UI
         {
-            public const string MOUSE_POINTER = "Sprites/MousePointer";
+            public const string MOUSE_POINTER = "Textures/MousePointer";
         }
     }
 }
