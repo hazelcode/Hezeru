@@ -4,13 +4,16 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input.Touch;
+using MonoGameGum;
+using Gum.Forms;
+using Gum.Forms.Controls;
+
 
 namespace KeplerEngine;
 
 public class Globals
 {
     public static SpriteBatch SpriteBatch { get; set; }
-
     public static RenderTarget2D RenderTarget { get; set; }
     
     /// <summary>
@@ -21,7 +24,7 @@ public class Globals
     /// <summary>
     /// VisibleRenderTargetBounds: the rectangle (in native render-target coordinates)
     ///  that is currently visible on screen after scaling (useful for anchoring)
-    /// </summary>
+// </summary>
     public static Rectangle VisibleRenderTargetBounds { get; set; } = Rectangle.Empty;
     
     /// <summary>
@@ -30,10 +33,16 @@ public class Globals
     public static Rectangle RenderTargetDisplayRect { get; set; } = Rectangle.Empty;
 
     /// <summary>
+    /// The default Kepler Engine's Gum service
+    /// </summary>
+    public static GumService GumUI { get; } = GumService.Default;
+    
+
+    /// <summary>
     /// Returns the visible render target bounds if they're not empty.
     /// Otherwise, returns the bounds of the original render target.
-    /// </summary>
-    public static Rectangle GetVisibleRenderTargetBounds() {
+    public static Rectangle GetVisibleRenderTargetBounds()
+    {
         var visible = Globals.VisibleRenderTargetBounds;
         if (visible == Rectangle.Empty)
             visible = Globals.RenderTarget.Bounds;
@@ -54,8 +63,8 @@ public class Globals
         Contain,
 
         /// <summary>
-        /// Fill window, may crop.
-        /// </summary>
+        /// Fi
+// </summary>
         Cover,
         
         /// <summary>
@@ -71,7 +80,6 @@ public class Globals
     public static MouseInputHandler Mouse { get; set; } = new MouseInputHandler();
 
     public static TouchInputHandler Touch { get; set; } = new TouchInputHandler();
-
     public static SceneManager SceneManager { get; set; } = new SceneManager();
     
     public static GameTime UpdateTime { get; set; }
@@ -81,6 +89,11 @@ public class Globals
     public static float DeltaTime { get; set; }
 
     public static ContentManager Content { get; set; }
+
+    public static void InitService(Game game)
+    {
+        GumUI.Initialize(game, DefaultVisualsVersion.V3);
+    }
 
     public static void InitTouch()
     {
@@ -93,8 +106,8 @@ public class Globals
         Keyboard.Update();
         Mouse.Update();
         Touch.Update();
-
         SceneManager.GetCurrentScene().Update();
+        GumUI.Update(gameTime);
         
         OnUpdate(gameTime);
     }
@@ -104,10 +117,11 @@ public class Globals
         DrawTime = gameTime;
         DeltaTime = (float)DrawTime.ElapsedGameTime.TotalSeconds;
         SceneManager.GetCurrentScene().Draw();
+        GumUI.Draw();
         
         OnRender(gameTime);
-    }
-
+    } 
+ 
     public static Action<GameTime> OnUpdate = (gt) => {};
     public static Action<GameTime> OnRender = (gt) => {};
 }
