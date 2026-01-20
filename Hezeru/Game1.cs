@@ -147,10 +147,18 @@ public class Game1 : Game
         GraphicsDevice.Clear(Color.Black);
         Globals.SpriteBatch.Begin(samplerState: SamplerState.PointClamp);
 
+#region Game renderization
         // Draw code at native coordinates
         Globals.Draw(gameTime);
+        // Call any registered render callbacks while the SpriteBatch is active
+        Globals.OnRender(gameTime);
+
 
         Globals.SpriteBatch.End();
+        // Draw Gum UI into the active render target now that our SpriteBatch has ended
+        Globals.GumUI.Draw();
+#endregion
+
         GraphicsDevice.SetRenderTarget(null);
 
         // Final pass: draw the RenderTarget scaled to fill the window (cover)

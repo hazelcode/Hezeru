@@ -116,10 +116,7 @@ public class Globals
         DrawTime = gameTime;
         DeltaTime = (float)DrawTime.ElapsedGameTime.TotalSeconds;
         SceneManager.GetCurrentScene().Draw();
-        GumUI.Draw();
-        
-        OnRender(gameTime);
-    } 
+    }
  
     public static Action<GameTime> OnUpdate = (gt) => {};
     public static Action<GameTime> OnRender = (gt) => {};
