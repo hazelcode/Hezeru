@@ -40,12 +40,11 @@ public class Globals
 
     /// <summary>
     /// Returns the visible render target bounds if they're not empty.
-    /// Otherwise, returns the bounds of the original rend
+    /// Otherwise, returns the bounds of the original render target.
+    public static Rectangle GetVisibleRenderTargetBounds()
     {
         var visible = Globals.VisibleRenderTargetBounds;
         if (visible == Rectangle.Empty)
-            visible = Globals.RenderTarget.Bounds;
-f (visible == Rectangle.Empty)
             visible = Globals.RenderTarget.Bounds;
         
         return VisibleRenderTargetBounds == Rectangle.Empty
@@ -80,7 +79,7 @@ f (visible == Rectangle.Empty)
 
     public static MouseInputHandler Mouse { get; set; } = new MouseInputHandler();
 
-    public static TouchInputHandler Touch { get; set; } = new TouchInputHandler
+    public static TouchInputHandler Touch { get; set; } = new TouchInputHandler();
     public static SceneManager SceneManager { get; set; } = new SceneManager();
     
     public static GameTime UpdateTime { get; set; }
@@ -110,7 +109,7 @@ f (visible == Rectangle.Empty)
     public static void Draw(GameTime gameTime)
     {
         DrawTime = gameTime;
-eltaTime = (float)DrawTime.ElapsedGameTime.TotalSeconds;
+        DeltaTime = (float)DrawTime.ElapsedGameTime.TotalSeconds;
         SceneManager.GetCurrentScene().Draw();
         
         OnRender(gameTime);
