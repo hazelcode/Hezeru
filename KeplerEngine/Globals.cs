@@ -35,7 +35,7 @@ public class Globals
     /// <summary>
     /// The default Kepler Engine's Gum service
     /// </summary>
-    public GumService GumUI { get; } = GumService.Default;
+    public static GumService GumUI { get; } = GumService.Default;
     
 
     /// <summary>
@@ -90,6 +90,11 @@ public class Globals
 
     public static ContentManager Content { get; set; }
 
+    public static void InitService(Game game)
+    {
+        GumUI.Initialize(game, DefaultVisualsVersion.V3);
+    }
+
     public static void InitTouch()
     {
         TouchPanel.EnabledGestures = GestureType.Tap;
@@ -102,6 +107,7 @@ public class Globals
         Mouse.Update();
         Touch.Update();
         SceneManager.GetCurrentScene().Update();
+        GumUI.Update(gameTime);
         
         OnUpdate(gameTime);
     }
@@ -111,6 +117,7 @@ public class Globals
         DrawTime = gameTime;
         DeltaTime = (float)DrawTime.ElapsedGameTime.TotalSeconds;
         SceneManager.GetCurrentScene().Draw();
+        GumUI.Draw();
         
         OnRender(gameTime);
     } 

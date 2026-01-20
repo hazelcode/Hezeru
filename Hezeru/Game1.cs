@@ -45,7 +45,8 @@ public class Game1 : Game
 
     protected override void Initialize()
     {
-        // TODO: Add your initialization logic here
+        // Initialize Kepler Engine's Gum UI service.
+        Globals.InitService(this);
 
         base.Initialize();
     }
