@@ -150,8 +150,6 @@ public class Game1 : Game
 #region Game renderization
         // Draw code at native coordinates
         Globals.Draw(gameTime);
-        // Call any registered render callbacks while the SpriteBatch is active
-        Globals.OnRender(gameTime);
 
 
         Globals.SpriteBatch.End();
