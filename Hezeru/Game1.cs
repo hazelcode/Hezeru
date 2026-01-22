@@ -1,5 +1,6 @@
 ﻿using System;
 using Hezeru.Loading;
+using Hezeru.Rendering;
 using Hezeru.Scenes;
 using KeplerEngine;
 using Microsoft.Xna.Framework;
@@ -46,6 +47,7 @@ public class Game1 : Game
     protected override void Initialize()
     {
         Globals.InitService(this);
+        Globals.AddRenderLayer(RenderLayers.GUILayer);
 
         base.Initialize();
     }
@@ -146,11 +148,10 @@ public class Game1 : Game
         GraphicsDevice.Clear(Color.Black);
 
 #region Game renderization
+
         // Draw code at native coordinates
         Globals.Draw(gameTime);
 
-        // Draw Gum UI into the active render target now that our SpriteBatch has ended
-        Globals.GumUI.Draw();
 #endregion
 
         GraphicsDevice.SetRenderTarget(null);
