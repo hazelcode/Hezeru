@@ -45,7 +45,6 @@ public class Game1 : Game
 
     protected override void Initialize()
     {
-        // Initialize Kepler Engine's Gum UI service.
         Globals.InitService(this);
 
         base.Initialize();
@@ -145,14 +144,11 @@ public class Game1 : Game
         // Render everything at native resolution (no internal SpriteBatch transform)
         GraphicsDevice.SetRenderTarget(Globals.RenderTarget);
         GraphicsDevice.Clear(Color.Black);
-        Globals.SpriteBatch.Begin(samplerState: SamplerState.PointClamp);
 
 #region Game renderization
         // Draw code at native coordinates
         Globals.Draw(gameTime);
 
-
-        Globals.SpriteBatch.End();
         // Draw Gum UI into the active render target now that our SpriteBatch has ended
         Globals.GumUI.Draw();
 #endregion

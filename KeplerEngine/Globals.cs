@@ -1,11 +1,14 @@
 ﻿using System;
 using KeplerEngine.Input;
+using KeplerEngine.Rendering;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input.Touch;
 using MonoGameGum;
 using Gum.Forms;
+using System.Collections.Generic;
+using System.Linq;
 
 
 namespace KeplerEngine;
@@ -40,6 +43,7 @@ public class Globals
     /// <summary>
     /// Returns the visible render target bounds if they're not empty.
     /// Otherwise, returns the bounds of the original render target.
+    /// </summary>
     public static Rectangle GetVisibleRenderTargetBounds()
     {
         var visible = Globals.VisibleRenderTargetBounds;
@@ -89,9 +93,37 @@ public class Globals
 
     public static ContentManager Content { get; set; }
 
+    private static readonly HashSet<RenderLayer> _layerSet = [];
+
+    public static List<RenderLayer> RenderLayers { get; private set; } = [];
+
     public static void InitService(Game game)
     {
         GumUI.Initialize(game, DefaultVisualsVersion.V3);
+
+        AddRenderLayer(SceneManager.SceneLayer);
+    }
+
+    public static void AddRenderLayer(RenderLayer layer)
+    {
+        if(!_layerSet.Add(layer))
+            return;
+        
+        RenderLayers.Add(layer);
+        ReorderRenderLayers();
+    }
+
+    public static void RemoveRenderLayer(RenderLayer layer)
+    {
+        if(!_layerSet.Remove(layer))
+            return;
+        
+        RenderLayers.Remove(layer);
+    }
+
+    public static void ReorderRenderLayers()
+    {
+        RenderLayers.Sort((a, b) => a.Order.CompareTo(b.Order));
     }
 
     public static void InitTouch()
@@ -115,9 +147,31 @@ public class Globals
     {
         DrawTime = gameTime;
         DeltaTime = (float)DrawTime.ElapsedGameTime.TotalSeconds;
-        SceneManager.GetCurrentScene().Draw();
+
+        foreach(var renderLayer in RenderLayers)
+        {
+            if(!renderLayer.Enabled)
+                continue;
+            
+            if(renderLayer.RenderMode == RenderLayer.LayerRenderMode.SpriteBatch)
+            {
+                SpriteBatch.Begin(samplerState: SamplerState.PointClamp);
+                renderLayer.Render(gameTime);
+                SpriteBatch.End();
+            } else
+            {
+                renderLayer.Render(gameTime);
+            }
+        }
+
+        Globals.OnRender(gameTime);
     }
  
     public static Action<GameTime> OnUpdate = (gt) => {};
+
+    /// <summary>
+    /// This Action must not contain draw calls because
+    /// Kepler Engine calls this after the last Globals.SpriteBatch.End()
+    /// </summary>
     public static Action<GameTime> OnRender = (gt) => {};
 }
