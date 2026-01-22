@@ -2,5 +2,5 @@ namespace Hezeru.Rendering;
 
 public static class RenderLayers
 {
-    public static GUILayer GUILayer = new GUILayer();
+    public static GUILayer GUILayer { get; } = new GUILayer();
 }
