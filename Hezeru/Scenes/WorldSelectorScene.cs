@@ -1,10 +1,12 @@
+using Hezeru.World;
 using KeplerEngine;
 using KGUI = KeplerEngine.GUI;
 using KeplerEngine.MemoryCaching;
+using MonoGameGum;
+using Gum.Forms.Controls;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Gum.Forms.Controls;
-using MonoGameGum;
+using System.Collections.Generic;
 
 namespace Hezeru.Scenes;
 
@@ -16,6 +18,7 @@ public class WorldSelectorScene : IScene
     private string selectWorldText = "Select World";
     private Rectangle _selectWorldTextRect;
     private StackPanel _worldsPanel;
+    private ScrollViewer _scrollViewer;
     private KGUI.ElementAnchorData _backButtonAnchor;
     private Rectangle _backButtonSpace = new Rectangle(0, 0, 150, 20);
     private Button _backButton;
@@ -38,18 +41,23 @@ public class WorldSelectorScene : IScene
         
         _worldsPanel.AddChild(textBox);
 
-        var scrollViewer = new ScrollViewer();
-        scrollViewer.Width = 250;
-        scrollViewer.Height = 500;
+        _scrollViewer = new ScrollViewer();
+        _scrollViewer.Width = 250;
+        _scrollViewer.Height = 500;
 
         var createBtn = new Button();
         createBtn.Text = "Create";
         createBtn.Width = 100;
         createBtn.IsEnabled = false;
         createBtn.Click += (_, _) => {
-            scrollViewer.AddChild(new Button()
+            if(textBox.Text == string.Empty)
+                return;
+            
+            var worldItemInfo = new WorldItemInfo(textBox.Text);
+            WorldListManager.WorldsList.Add(worldItemInfo);
+            _scrollViewer.AddChild(new Button()
             {
-                Text = textBox.Text,
+                Text = worldItemInfo.WorldName,
                 Width = 250,
                 Height = 40,
             });
@@ -69,7 +77,7 @@ public class WorldSelectorScene : IScene
         };
 
         _worldsPanel.AddChild(createBtn);
-        _worldsPanel.AddChild(scrollViewer);
+        _worldsPanel.AddChild(_scrollViewer);
 
         _backButton = new Button();
         _backButton.Text = "Back";
@@ -78,7 +86,7 @@ public class WorldSelectorScene : IScene
         _backButton.Click += (_, _) =>
         {
             textBox.RemoveFromRoot();
-            scrollViewer.RemoveFromRoot();
+            _scrollViewer.RemoveFromRoot();
             createBtn.RemoveFromRoot();
             _worldsPanel.RemoveFromRoot();
             _backButton.RemoveFromRoot();
@@ -86,6 +94,16 @@ public class WorldSelectorScene : IScene
             Globals.SceneManager.AddScene(new MainMenuScene());
         };
         _backButton.AddToRoot();
+
+        foreach(var world in WorldListManager.WorldsList)
+        {
+            _scrollViewer.AddChild(new Button()
+            {
+                Text = world.WorldName,
+                Width = 250,
+                Height = 40,
+            });
+        }
     }
 
     public void Update()
