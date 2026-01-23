@@ -48,6 +48,7 @@ public class Game1 : Game
     {
         Globals.InitService(this);
         Globals.AddRenderLayer(RenderLayers.GUILayer);
+        Globals.AddRenderLayer(RenderLayers.MouseLayer);
 
         base.Initialize();
     }
