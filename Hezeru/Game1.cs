@@ -139,6 +139,25 @@ public class Game1 : Game
             (int)Math.Round(visHf));
         // Store where the render target is drawn on the screen (window coordinates)
         Globals.RenderTargetDisplayRect = new Rectangle(offsetX, offsetY, drawW, drawH);
+
+        Globals.GumUI.CanvasWidth = NATIVE_WIDTH;
+        Globals.GumUI.CanvasHeight = NATIVE_HEIGHT;
+
+        Globals.GumUI.Cursor.TransformMatrix =
+            Matrix.CreateTranslation(
+                -offsetX,
+                -offsetY,
+                0) *
+            Matrix.CreateScale(
+                invScale,
+                invScale,
+                1f) *
+            Matrix.CreateTranslation(
+                visXf,
+                visYf,
+                0
+            );
+
     }
 
     protected override void Draw(GameTime gameTime)
