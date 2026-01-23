@@ -81,11 +81,12 @@ public class Game1 : Game
 #if DEBUG
         Globals.Keyboard.OnKeyPressedOnce(Keys.F11, _graphics.ToggleFullScreen);
 #endif
-        // Recalculate UI scaling each frame (in case window size changed)
-        UpdateUIScaling();
 
         // Update debug logic
         _debugLogic.Update();
+
+        // Recalculate UI scaling each frame (in case window size changed)
+        UpdateUIScaling();
 
         Globals.Update(gameTime);
         Globals.Keyboard.OnKeyPressedOnce(Keys.Escape, Exit);
