@@ -16,7 +16,7 @@ public class Game1 : Game
     private RenderTarget2D _renderTarget;
     private const int NATIVE_WIDTH = 1280;
     private const int NATIVE_HEIGHT = 720;
-    private DebugOverlay _debugOverlay;
+    private DebugLogic _debugLogic;
     private SpriteFont _consolasFont;
 
     public Game1()
@@ -50,6 +50,7 @@ public class Game1 : Game
         Globals.SceneManager.SetRenderLayerOrder(LayerHints.GAMEPLAY_LAYER);
         Globals.AddRenderLayer(RenderLayers.GUILayer);
         Globals.AddRenderLayer(RenderLayers.MouseLayer);
+        Globals.AddRenderLayer(RenderLayers.DebugLayer);
 
         base.Initialize();
     }
@@ -64,12 +65,13 @@ public class Game1 : Game
         Globals.Content = Content;
 
         _consolasFont = Globals.Content.Load<SpriteFont>("Fonts/Consolas");
+        RenderLayers.DebugLayer.DebugFont = _consolasFont;
 
         // Initialize UI scaling/visible rect
         UpdateUIScaling();
 
-        // Initialize debug overlay (null font is ok, just won't display text)
-        _debugOverlay = new DebugOverlay(_consolasFont);
+        // Initialize debug logic
+        _debugLogic = new DebugLogic();
 
         Globals.SceneManager.AddScene(new LoadingScene(new StartupLoader(), new MainMenuScene()));
     }
@@ -82,8 +84,8 @@ public class Game1 : Game
         // Recalculate UI scaling each frame (in case window size changed)
         UpdateUIScaling();
 
-        // Update debug overlay
-        _debugOverlay.Update();
+        // Update debug logic
+        _debugLogic.Update();
 
         Globals.Update(gameTime);
         Globals.Keyboard.OnKeyPressedOnce(Keys.Escape, Exit);
@@ -188,10 +190,6 @@ public class Game1 : Game
         GraphicsDevice.Clear(Color.Black);
         Globals.SpriteBatch.Begin(samplerState: SamplerState.PointClamp);
         Globals.SpriteBatch.Draw(Globals.RenderTarget, targetRect, Color.White);
-
-        // Draw debug overlay on top
-        _debugOverlay.Draw();
-
         Globals.SpriteBatch.End();
 
         base.Draw(gameTime);
