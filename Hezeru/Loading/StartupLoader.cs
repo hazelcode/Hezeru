@@ -7,6 +7,7 @@ using KeplerEngine.MemoryCaching;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Hezeru.Rendering;
 
 namespace Hezeru.Loading;
 
@@ -28,7 +29,10 @@ public class StartupLoader : ILoader
 
         Texture2D mousePointerTex = Globals.Content.Load<Texture2D>(ResourcePaths.Textures.UI.MOUSE_POINTER);
 
-        Globals.OnRender += (gt) =>
+        MouseLayer mouseLayer = new MouseLayer(mousePointerTex);
+        Globals.AddRenderLayer(mouseLayer);
+
+        Globals.OnUpdate += (gt) =>
         {
             Point windowMousePos = Mouse.GetState().Position;
 
@@ -49,10 +53,8 @@ public class StartupLoader : ILoader
 
             Point drawSize = new Point((int)(48.0 * mousePointerScale), (int)(48.0 * mousePointerScale));
 
-            Globals.SpriteBatch.Draw(
-                mousePointerTex,
-                new Rectangle(drawPoint, drawSize),
-                Color.White);
+            mouseLayer.DrawPoint = drawPoint;
+            mouseLayer.DrawSize = drawSize;
         };
 
         Texture2D playerAnimationTexture = Globals.Content.Load<Texture2D>(ResourcePaths.Animations.PLAYER);

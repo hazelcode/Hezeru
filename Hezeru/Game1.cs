@@ -1,5 +1,6 @@
 ﻿using System;
 using Hezeru.Loading;
+using Hezeru.Rendering;
 using Hezeru.Scenes;
 using KeplerEngine;
 using Microsoft.Xna.Framework;
@@ -45,8 +46,8 @@ public class Game1 : Game
 
     protected override void Initialize()
     {
-        // Initialize Kepler Engine's Gum UI service.
         Globals.InitService(this);
+        Globals.AddRenderLayer(RenderLayers.GUILayer);
 
         base.Initialize();
     }
@@ -138,6 +139,25 @@ public class Game1 : Game
             (int)Math.Round(visHf));
         // Store where the render target is drawn on the screen (window coordinates)
         Globals.RenderTargetDisplayRect = new Rectangle(offsetX, offsetY, drawW, drawH);
+
+        Globals.GumUI.CanvasWidth = NATIVE_WIDTH;
+        Globals.GumUI.CanvasHeight = NATIVE_HEIGHT;
+
+        Globals.GumUI.Cursor.TransformMatrix =
+            Matrix.CreateTranslation(
+                -offsetX,
+                -offsetY,
+                0) *
+            Matrix.CreateScale(
+                invScale,
+                invScale,
+                1f) *
+            Matrix.CreateTranslation(
+                visXf,
+                visYf,
+                0
+            );
+
     }
 
     protected override void Draw(GameTime gameTime)
@@ -145,12 +165,14 @@ public class Game1 : Game
         // Render everything at native resolution (no internal SpriteBatch transform)
         GraphicsDevice.SetRenderTarget(Globals.RenderTarget);
         GraphicsDevice.Clear(Color.Black);
-        Globals.SpriteBatch.Begin(samplerState: SamplerState.PointClamp);
+
+#region Game renderization
 
         // Draw code at native coordinates
         Globals.Draw(gameTime);
 
-        Globals.SpriteBatch.End();
+#endregion
+
         GraphicsDevice.SetRenderTarget(null);
 
         // Final pass: draw the RenderTarget scaled to fill the window (cover)
