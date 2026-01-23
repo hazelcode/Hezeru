@@ -47,6 +47,7 @@ public class Game1 : Game
     protected override void Initialize()
     {
         Globals.InitService(this);
+        Globals.SceneManager.SetRenderLayerOrder(LayerHints.GAMEPLAY_LAYER);
         Globals.AddRenderLayer(RenderLayers.GUILayer);
         Globals.AddRenderLayer(RenderLayers.MouseLayer);
 
