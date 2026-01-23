@@ -1,5 +1,5 @@
 using KeplerEngine;
-using KeplerEngine.GUI;
+using KGUI = KeplerEngine.GUI;
 using KeplerEngine.MemoryCaching;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -12,17 +12,21 @@ public class WorldSelectorScene : IScene
 {
     private Texture2D _background;
     private SpriteFont _consolas18Font;
-    private ElementAnchorData _selectWorldTextAnchor;
+    private KGUI.ElementAnchorData _selectWorldTextAnchor;
     private string selectWorldText = "Select World";
     private Rectangle _selectWorldTextRect;
     private StackPanel _worldsPanel;
+    private KGUI.ElementAnchorData _backButtonAnchor;
+    private Rectangle _backButtonSpace = new Rectangle(0, 0, 150, 20);
+    private Button _backButton;
 
     public void Load()
     {
         _background = (LoadingScene.LoadedResources[ResourcePaths.Textures.MainMenu.BACKGROUND] as Resource<Texture2D>).Data;
         _consolas18Font = (LoadingScene.LoadedResources[ResourcePaths.Fonts.CONSOLAS_18] as Resource<SpriteFont>).Data;
-        _selectWorldTextAnchor = new ElementAnchorData(ElementAnchor.TopCenter, 0, 30);
+        _selectWorldTextAnchor = new KGUI.ElementAnchorData(KGUI.ElementAnchor.TopCenter, 0, 30);
         _selectWorldTextRect = new Rectangle(Point.Zero, _consolas18Font.MeasureString(selectWorldText).ToPoint());
+        _backButtonAnchor = new KGUI.ElementAnchorData(KGUI.ElementAnchor.BottomLeftCorner, 5, -30);
 
         _worldsPanel = new StackPanel();
         _worldsPanel.AddToRoot();
@@ -38,12 +42,12 @@ public class WorldSelectorScene : IScene
         scrollViewer.Width = 250;
         scrollViewer.Height = 500;
 
-        var createBtn = new Gum.Forms.Controls.Button();
+        var createBtn = new Button();
         createBtn.Text = "Create";
         createBtn.Width = 100;
         createBtn.IsEnabled = false;
         createBtn.Click += (_, _) => {
-            scrollViewer.AddChild(new Gum.Forms.Controls.Button()
+            scrollViewer.AddChild(new Button()
             {
                 Text = textBox.Text,
                 Width = 250,
@@ -66,6 +70,22 @@ public class WorldSelectorScene : IScene
 
         _worldsPanel.AddChild(createBtn);
         _worldsPanel.AddChild(scrollViewer);
+
+        _backButton = new Button();
+        _backButton.Text = "Back";
+        _backButton.Width = _backButtonSpace.Width;
+        _backButton.Height = _backButtonSpace.Height;
+        _backButton.Click += (_, _) =>
+        {
+            textBox.RemoveFromRoot();
+            scrollViewer.RemoveFromRoot();
+            createBtn.RemoveFromRoot();
+            _worldsPanel.RemoveFromRoot();
+            _backButton.RemoveFromRoot();
+
+            Globals.SceneManager.AddScene(new MainMenuScene());
+        };
+        _backButton.AddToRoot();
     }
 
     public void Update()
@@ -73,6 +93,13 @@ public class WorldSelectorScene : IScene
         _selectWorldTextAnchor.AdjustToContainer(
             Globals.GetVisibleRenderTargetBounds(),
             ref _selectWorldTextRect);
+
+        _backButtonAnchor.AdjustToContainer(
+            Globals.GetVisibleRenderTargetBounds(),
+            ref _backButtonSpace
+        );
+        _backButton.X = _backButtonSpace.X;
+        _backButton.Y = _backButtonSpace.Y;
     }
 
     public void Draw()
