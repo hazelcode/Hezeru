@@ -38,7 +38,7 @@ public class WorldSelectorScene : IScene
         textBox.Placeholder = "New world name...";
         textBox.Y = 25;
         textBox.Width = 250;
-        
+
         _worldsPanel.AddChild(textBox);
 
         _scrollViewer = new ScrollViewer();
@@ -49,12 +49,13 @@ public class WorldSelectorScene : IScene
         createBtn.Text = "Create";
         createBtn.Width = 100;
         createBtn.IsEnabled = false;
-        createBtn.Click += (_, _) => {
-            if(textBox.Text == string.Empty)
-                return;
-            
-            var worldItemInfo = new WorldItemInfo(textBox.Text);
-            WorldListManager.WorldsList.Add(worldItemInfo);
+        createBtn.Click += (_, _) =>
+        {
+            var worldItemInfo = new WorldItemInfo();
+            worldItemInfo.WorldName = textBox.Text;
+            textBox.Text = string.Empty;
+
+            WorldListManager.AddWorld(worldItemInfo);
             _scrollViewer.AddChild(new Button()
             {
                 Text = worldItemInfo.WorldName,
@@ -95,7 +96,7 @@ public class WorldSelectorScene : IScene
         };
         _backButton.AddToRoot();
 
-        foreach(var world in WorldListManager.WorldsList)
+        foreach (var world in WorldListManager.WorldsList)
         {
             _scrollViewer.AddChild(new Button()
             {
