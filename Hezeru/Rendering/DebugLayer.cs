@@ -18,7 +18,7 @@ public class DebugLayer : RenderLayer
     {
 #if !DEBUG
         return;
-#endif
+#else
 
         string modeText = Globals.CurrentScalingMode.ToString();
         string scaleText = $"Scale: {Globals.UIScale:F2}x";
@@ -37,5 +37,6 @@ public class DebugLayer : RenderLayer
         Globals.SpriteBatch.DrawString(DebugFont, visibleText, pos, Color.LimeGreen);
         pos.Y += 20;
         Globals.SpriteBatch.DrawString(DebugFont, helpText, pos, Color.Yellow);
+#endif
     }
 }
