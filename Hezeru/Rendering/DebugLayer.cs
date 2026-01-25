@@ -16,9 +16,7 @@ public class DebugLayer : RenderLayer
 
     public override void Render(GameTime gameTime)
     {
-#if !DEBUG
-        return;
-#else
+#if DEBUG
 
         string modeText = Globals.CurrentScalingMode.ToString();
         string scaleText = $"Scale: {Globals.UIScale:F2}x";
