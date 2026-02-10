@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Microsoft.Xna.Framework;
 
 namespace KeplerEngine.Graphics;
@@ -37,13 +36,31 @@ public static class ParticleManager
         }
 
         if(RemoveQuery.Count == 0) return;
-        
+
         RemoveQuery.Sort();
         RemoveQuery.Reverse();
         
         foreach(int i in RemoveQuery)
         {
             Particles.RemoveAt(i);
+        }
+    }
+
+    public static void Draw()
+    {
+        foreach(var particle in Particles)
+        {
+            Globals.SpriteBatch.Draw(
+                particle.Texture,
+                particle.Position,
+                null, // Use full texture
+                particle.Color,
+                particle.Rotation,
+                new Vector2(particle.Texture.Width / 2f, particle.Texture.Height / 2f),
+                particle.Scale,
+                particle.Effects,
+                particle.LayerDepth
+            );
         }
     }
 }
