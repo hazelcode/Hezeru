@@ -1,27 +1,32 @@
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace KeplerEngine.Graphics;
 
-public struct Particle
+public class Particle
 {
-    public Particle() { }
+    public string Name { get; set; }
 
-    public Texture2D Texture { get; set; }
+    public ParticleData Data { get; set; }
 
-    public uint Duration { get; set; }
+    public bool IsDestroyed { get; internal set; } = false;
 
-    public Color Color { get; set; }
+    public bool DestroyWhenNotVisible { get; set; } = true;
 
-    public Vector2 Position { get; set; }
+    public Particle(string particleName, ParticleData particleData)
+    {
+        Name = particleName;
+        Data = particleData;
+    }
 
-    public float Rotation { get; set; }
+    public virtual void Emit()
+    {
+        Data.ElapsedTime = 0.0;
+    }
 
-    public float Gravity { get; set; }
+    public virtual void Update(GameTime gameTime) {}
 
-    public Vector2 Scale { get; set; }
-
-    public SpriteEffects Effects { get; set; } = SpriteEffects.None;
-
-    public float LayerDepth { get; set; }
+    public virtual void Destroy()
+    {
+        IsDestroyed = true;
+    }
 }
