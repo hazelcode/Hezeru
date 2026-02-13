@@ -38,7 +38,7 @@ public class AsepriteAnimation
           .First(t => t.Name == tag);
 
         _currentAnimation = _data.Frames
-          .Skip(tagData.From)
+          .Skip(tagData.From + tagData.To + 1)
           .Take(tagData.To - tagData.From + 1)
           .ToList();
 
