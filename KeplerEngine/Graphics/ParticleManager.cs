@@ -84,10 +84,13 @@ public static class ParticleManager
             if(particle.Data.Texture == null)
                 continue;
             
+            if(particle.Data.SourceRectangle == new Rectangle())
+                continue;
+            
             Globals.SpriteBatch.Draw(
                 particle.Data.Texture,
                 particle.Data.Position,
-                null, // Use full texture
+                particle.Data.SourceRectangle, // Use full texture
                 particle.Data.Color,
                 particle.Data.Rotation,
                 new Vector2(particle.Data.Texture.Width / 2f, particle.Data.Texture.Height / 2f),

@@ -25,6 +25,21 @@
 /processorParam:TextureFormat=Color
 /build:Animations/LoadingWheel.png
 
+#begin Animations/Particles/ParticleTest.json
+/copy:Animations/Particles/ParticleTest.json
+
+#begin Animations/Particles/ParticleTest.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Animations/Particles/ParticleTest.png
+
 #begin Animations/Player.json
 /copy:Animations/Player.json
 

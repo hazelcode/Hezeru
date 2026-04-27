@@ -10,13 +10,13 @@ public class AsepriteAnimation
 {
     private AnimationData _data;
 
-    private Rectangle _sourceRect;
+    public Rectangle SourceRect;
 
     public Rectangle DestRect = Rectangle.Empty;
 
     private List<Frame> _currentAnimation = [];
 
-    private Texture2D _texture;
+    public Texture2D Texture;
 
     private double _currentDuration = 0;
 
@@ -29,7 +29,7 @@ public class AsepriteAnimation
     public AsepriteAnimation(AnimationData data, Texture2D texture)
     {
         _data = data;
-        _texture = texture;
+        Texture = texture;
     }
 
     public void PrepareAnimationTag(string tag)
@@ -102,11 +102,11 @@ public class AsepriteAnimation
             _currentDuration = 0;
         }
 
-        _sourceRect = CalculateSourceRectangle();
+        SourceRect = CalculateSourceRectangle();
     }
 
     public void Draw()
     {
-        Globals.SpriteBatch.Draw(_texture, DestRect, _sourceRect, Color.White);
+        Globals.SpriteBatch.Draw(Texture, DestRect, SourceRect, Color.White);
     }
 }

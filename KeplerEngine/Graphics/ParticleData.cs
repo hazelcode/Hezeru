@@ -12,6 +12,8 @@ public class ParticleData
 
     public Texture2D Texture { get; set; }
 
+    public Rectangle SourceRectangle { get; set; } = new Rectangle();
+
     /// <summary>
     /// The total duration of the particle in milliseconds. 1000 ms = 1s.
     /// </summary>
