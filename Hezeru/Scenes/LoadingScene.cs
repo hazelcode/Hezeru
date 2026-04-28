@@ -10,7 +10,7 @@ using KeplerEngine.MemoryCaching;
 
 namespace Hezeru.Scenes;
 
-public class LoadingScene : IScene, IDisposable
+public class LoadingScene : IScene
 {
     private Texture2D _loadingWheelTex;
     private Animation _loadingWheelAnim;
@@ -24,6 +24,9 @@ public class LoadingScene : IScene, IDisposable
     private IEnumerator<(string ResourceName, IResource Resource)> _resourcesEnumerator;
     public static Dictionary<string, IResource> LoadedResources = [];
 
+    public bool BlockUpdate { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+    public bool BlockRendering { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
     public LoadingScene(ILoader loader, IScene destinationScene)
     {
         _loader = loader;
@@ -31,7 +34,7 @@ public class LoadingScene : IScene, IDisposable
         _resourcesEnumerator = _loader.Stages().GetEnumerator();
     }
 
-    public void Load()
+    public void Load(ref ResourceManager resourceManager)
     {
         _loadingWheelTex = Globals.Content.Load<Texture2D>(ResourcePaths.Animations.LOADING_WHEEL);
         _loadingWheelAnim = new Animation(4, 4, new Vector2(16, 16), 10);
@@ -39,7 +42,7 @@ public class LoadingScene : IScene, IDisposable
         _wheelPositionRect = new(0, 0, 64, 64);
     }
 
-    public void Update()
+    public void Update(GameTime gameTime)
     {
         _loadingWheelAnim.Update();
         // Use the visible portion of the render target so anchors follow the visible area
@@ -61,14 +64,16 @@ public class LoadingScene : IScene, IDisposable
         }
     }
 
-    public void Draw()
+    public void Draw(SpriteBatch spriteBatch)
     {
-        Globals.SpriteBatch.Draw(
+        spriteBatch.Draw(
             _loadingWheelTex,
             _wheelPositionRect,
             _loadingWheelAnim.GetFrame(),
             Color.White);
     }
+
+    public void Destroy(ref ResourceManager resourceManager) {}
 
     public void Dispose()
     {

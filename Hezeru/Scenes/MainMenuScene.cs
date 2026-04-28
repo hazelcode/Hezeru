@@ -13,7 +13,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Hezeru.Scenes;
 
-public class MainMenuScene : IScene, IDisposable
+public class MainMenuScene : IScene
 {
     private Texture2D _hezeruLogo;
     private Texture2D _playButtonTexture;
@@ -25,7 +25,10 @@ public class MainMenuScene : IScene, IDisposable
     private Particle _testParticle;
     private Rectangle _testAnimationDestRect = new Rectangle(150, 100, 64, 64);
 
-    public void Load()
+    public bool BlockUpdate { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+    public bool BlockRendering { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
+    public void Load(ref ResourceManager resourceManager)
     {
         _hezeruLogo = (LoadingScene.LoadedResources[ResourcePaths.Textures.MainMenu.LOGO] as Resource<Texture2D>).Data;
         _playButtonTexture = (LoadingScene.LoadedResources[ResourcePaths.Atlases.MainMenu.PLAY_BUTTON] as Resource<Texture2D>).Data;
@@ -54,7 +57,7 @@ public class MainMenuScene : IScene, IDisposable
         // Instances will re-generate when getting back to this scene.
     }
 
-    public void Update()
+    public void Update(GameTime gameTime)
     {
         // Use the visible portion of the render target so anchors follow the visible area
         var visible = Globals.VisibleRenderTargetBounds;
@@ -69,16 +72,18 @@ public class MainMenuScene : IScene, IDisposable
         ParticleManager.Update(Globals.UpdateTime);
     }
 
-    public void Draw()
+    public void Draw(SpriteBatch spriteBatch)
     {
-        Globals.SpriteBatch.Draw(_background, Globals.GetVisibleRenderTargetBounds(), Color.White);
+        spriteBatch.Draw(_background, Globals.GetVisibleRenderTargetBounds(), Color.White);
 
         // Draw with logo rect position, because we don't have any camera in this scene
-        Globals.SpriteBatch.Draw(_hezeruLogo, _logoRect, Color.White);
+        spriteBatch.Draw(_hezeruLogo, _logoRect, Color.White);
 
         _playButton.Draw(Globals.DrawTime);
         ParticleManager.Draw();
     }
+
+    public void Destroy(ref ResourceManager resourceManager) {}
 
     public void Dispose()
     {

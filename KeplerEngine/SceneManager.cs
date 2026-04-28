@@ -28,7 +28,7 @@ public class SceneManager
         {
             if (Scene == null) return;
 
-            Scene.Draw();
+            Scene.Draw(spriteBatch);
         }
     }
 
@@ -59,9 +59,10 @@ public class SceneManager
 
     public void AddScene(IScene scene, bool removeLastScene = false)
     {
-        scene.Load();
         if (removeLastScene)
-            RemoveScene();
+            RemoveScene(); // Destroy last scene after loading a new one
+        
+        scene.Load(ref KeplerServices.ResourceManager);
 
         sceneStack.Push(scene);
         SceneLayer.ChangeScene(scene);
@@ -69,6 +70,7 @@ public class SceneManager
 
     public void RemoveScene()
     {
-        sceneStack.Pop();
+        sceneStack.Peek().Destroy(ref KeplerServices.ResourceManager);
+        sceneStack.Pop(); // Directly to GC
     }
 }

@@ -1,8 +1,3 @@
 ﻿namespace KeplerEngine;
 
-public interface IScene
-{
-    public void Load();
-    public void Update();
-    public void Draw();
-}
+public interface IScene : ILoadable, IUpdatable, IRenderable, IDestroyable {}

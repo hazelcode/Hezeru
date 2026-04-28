@@ -6,7 +6,6 @@ using MonoGameGum;
 using Gum.Forms.Controls;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System.Collections.Generic;
 
 namespace Hezeru.Scenes;
 
@@ -23,7 +22,10 @@ public class WorldSelectorScene : IScene
     private Rectangle _backButtonSpace = new Rectangle(0, 0, 150, 20);
     private Button _backButton;
 
-    public void Load()
+    public bool BlockUpdate { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+    public bool BlockRendering { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+
+    public void Load(ref ResourceManager resourceManager)
     {
         _background = (LoadingScene.LoadedResources[ResourcePaths.Textures.MainMenu.BACKGROUND] as Resource<Texture2D>).Data;
         _consolas18Font = (LoadingScene.LoadedResources[ResourcePaths.Fonts.CONSOLAS_18] as Resource<SpriteFont>).Data;
@@ -107,7 +109,7 @@ public class WorldSelectorScene : IScene
         }
     }
 
-    public void Update()
+    public void Update(GameTime gameTime)
     {
         _selectWorldTextAnchor.AdjustToContainer(
             Globals.GetVisibleRenderTargetBounds(),
@@ -121,15 +123,19 @@ public class WorldSelectorScene : IScene
         _backButton.Y = _backButtonSpace.Y;
     }
 
-    public void Draw()
+    public void Draw(SpriteBatch spriteBatch)
     {
-        Globals.SpriteBatch.Draw(_background,
+        spriteBatch.Draw(_background,
             Globals.GetVisibleRenderTargetBounds(),
             Color.White);
 
-        Globals.SpriteBatch.DrawString(_consolas18Font,
+        spriteBatch.DrawString(_consolas18Font,
             selectWorldText,
             _selectWorldTextRect.Location.ToVector2(),
             Color.DarkGreen);
     }
+
+    public void Destroy(ref ResourceManager resourceManager) {}
+
+    public void Dispose() {}
 }
