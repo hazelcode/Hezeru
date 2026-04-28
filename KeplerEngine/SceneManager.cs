@@ -28,7 +28,8 @@ public class SceneManager
         {
             if (Scene == null) return;
 
-            Scene.Draw(spriteBatch);
+            if(!Scene.BlockRendering)
+                Scene.Draw(spriteBatch);
         }
     }
 

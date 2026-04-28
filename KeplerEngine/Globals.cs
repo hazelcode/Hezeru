@@ -137,7 +137,9 @@ public class Globals
         Keyboard.Update();
         Mouse.Update();
         Touch.Update();
-        SceneManager.GetCurrentScene().Update(gameTime);
+        if(!SceneManager.GetCurrentScene().BlockUpdate)
+            SceneManager.GetCurrentScene().Update(gameTime);
+        
         GumUI.Update(gameTime);
         
         OnUpdate(gameTime);
