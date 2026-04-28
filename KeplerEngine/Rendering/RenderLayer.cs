@@ -1,4 +1,4 @@
-using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace KeplerEngine.Rendering;
 
@@ -6,7 +6,7 @@ namespace KeplerEngine.Rendering;
 /// The intention of this class is to separate render layers
 /// such as GUI, HUD, Debug texts, Gameplay, Background or related.
 /// </summary>
-public abstract class RenderLayer
+public abstract class RenderLayer : IRenderable
 {
     public enum LayerRenderMode
     {
@@ -18,14 +18,20 @@ public abstract class RenderLayer
         /// <summary>
         /// Kepler Engine will not call SpriteBatch.Begin/End automatically.
         /// The layer is rensposible for its own render pipeline.
+        /// Any SpriteBatch passed through <code>RenderLayer.Draw(SpriteBatch spriteBatch)</code> is null.
         /// </summary>
         Manual
     }
     public byte Order { get; protected set; }
     
-    public bool Enabled { get; set; } = true;
+    public bool Enabled { get => !BlockRendering; set => BlockRendering = !value; }
 
+    /// <summary>
+    /// <strong>WARNING! </strong> When set to <code>LayerRenderMode.Manual</code> the SpriteBatch passed through this RenderLayer's <code>Draw(SpriteBatch spriteBatch)</code> method is null.
+    /// </summary>
     public virtual LayerRenderMode RenderMode => LayerRenderMode.SpriteBatch;
+
+    public bool BlockRendering { get; set; } = false;
 
     /// <summary>
     /// Constructs the render layer.
@@ -37,5 +43,5 @@ public abstract class RenderLayer
         Order = order;
     }
 
-    public abstract void Render(GameTime gameTime);
+    public abstract void Draw(SpriteBatch spriteBatch);
 }

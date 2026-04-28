@@ -14,7 +14,7 @@ public class DebugLayer : RenderLayer
         Enabled = false;
     }
 
-    public override void Render(GameTime gameTime)
+    public override void Draw(SpriteBatch spriteBatch)
     {
 #if DEBUG
 
@@ -26,15 +26,15 @@ public class DebugLayer : RenderLayer
         string helpText = "F2: Toggle | F3: Change Mode";
 
         Vector2 pos = new Vector2(10, 10);
-        Globals.SpriteBatch.DrawString(DebugFont, $"Mode: {modeText}", pos, Color.LimeGreen);
+        spriteBatch.DrawString(DebugFont, $"Mode: {modeText}", pos, Color.LimeGreen);
         pos.Y += 20;
-        Globals.SpriteBatch.DrawString(DebugFont, scaleText, pos, Color.LimeGreen);
+        spriteBatch.DrawString(DebugFont, scaleText, pos, Color.LimeGreen);
         pos.Y += 20;
-        Globals.SpriteBatch.DrawString(DebugFont, resText, pos, Color.LimeGreen);
+        spriteBatch.DrawString(DebugFont, resText, pos, Color.LimeGreen);
         pos.Y += 20;
-        Globals.SpriteBatch.DrawString(DebugFont, visibleText, pos, Color.LimeGreen);
+        spriteBatch.DrawString(DebugFont, visibleText, pos, Color.LimeGreen);
         pos.Y += 20;
-        Globals.SpriteBatch.DrawString(DebugFont, helpText, pos, Color.Yellow);
+        spriteBatch.DrawString(DebugFont, helpText, pos, Color.Yellow);
 #endif
     }
 }

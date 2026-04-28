@@ -21,12 +21,12 @@ public class MouseLayer : RenderLayer
         Enabled = false;
     }
 
-    public override void Render(GameTime gameTime)
+    public override void Draw(SpriteBatch spriteBatch)
     {
         if(DrawSize.X <= 0 || DrawSize.Y <= 0)
             return;
         
-        Globals.SpriteBatch.Draw(
+        spriteBatch.Draw(
                 MouseTex,
                 new Rectangle(DrawPoint, DrawSize),
                 Color.White);

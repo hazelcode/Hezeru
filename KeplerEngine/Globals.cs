@@ -156,11 +156,12 @@ public class Globals
             if(renderLayer.RenderMode == RenderLayer.LayerRenderMode.SpriteBatch)
             {
                 SpriteBatch.Begin(samplerState: SamplerState.PointClamp);
-                renderLayer.Render(gameTime);
+                renderLayer.Draw(SpriteBatch);
                 SpriteBatch.End();
             } else
             {
-                renderLayer.Render(gameTime);
+                // RenderLayer is responsible for it's own render pipeline.
+                renderLayer.Draw(null);
             }
         }
 

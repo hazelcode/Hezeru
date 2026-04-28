@@ -1,6 +1,7 @@
 ﻿using KeplerEngine.Rendering;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace KeplerEngine;
 
@@ -23,7 +24,7 @@ public class SceneManager
         }
         public SceneRenderLayer(byte order) : base(order) { }
 
-        public override void Render(GameTime gameTime)
+        public override void Draw(SpriteBatch spriteBatch)
         {
             if (Scene == null) return;
 

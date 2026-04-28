@@ -1,6 +1,7 @@
 using KeplerEngine.Rendering;
 using Microsoft.Xna.Framework;
 using KeplerEngine;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Hezeru.Rendering;
 
@@ -12,7 +13,7 @@ public class GUILayer : RenderLayer
 
     public GUILayer() : base(LayerHints.GUI_LAYER) {}
 
-    public override void Render(GameTime gameTime)
+    public override void Draw(SpriteBatch spriteBatch)
     {
         Globals.GumUI.Draw();
     }
